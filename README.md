@@ -1,2 +1,2 @@
 # Captain-Cook
-Game made in Unity for University Class lalalalallalalala
+Game made in Unity for University Class
