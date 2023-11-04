@@ -53,6 +53,15 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Drop"",
+                    ""type"": ""Button"",
+                    ""id"": ""0ee52a93-c89e-4274-ad2e-ce1c2befce97"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -209,6 +218,28 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""action"": ""Interact"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""749f222f-043e-46f0-bc47-b2d597977c70"",
+                    ""path"": ""<Keyboard>/x"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Drop"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7fbd5e0a-2cdb-45dd-9e67-808df45521b2"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Drop"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -220,6 +251,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_Walk_Movement = m_Walk.FindAction("Movement", throwIfNotFound: true);
         m_Walk_Look = m_Walk.FindAction("Look", throwIfNotFound: true);
         m_Walk_Interact = m_Walk.FindAction("Interact", throwIfNotFound: true);
+        m_Walk_Drop = m_Walk.FindAction("Drop", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -284,6 +316,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_Walk_Movement;
     private readonly InputAction m_Walk_Look;
     private readonly InputAction m_Walk_Interact;
+    private readonly InputAction m_Walk_Drop;
     public struct WalkActions
     {
         private @PlayerInput m_Wrapper;
@@ -291,6 +324,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         public InputAction @Movement => m_Wrapper.m_Walk_Movement;
         public InputAction @Look => m_Wrapper.m_Walk_Look;
         public InputAction @Interact => m_Wrapper.m_Walk_Interact;
+        public InputAction @Drop => m_Wrapper.m_Walk_Drop;
         public InputActionMap Get() { return m_Wrapper.m_Walk; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -309,6 +343,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Interact.started += instance.OnInteract;
             @Interact.performed += instance.OnInteract;
             @Interact.canceled += instance.OnInteract;
+            @Drop.started += instance.OnDrop;
+            @Drop.performed += instance.OnDrop;
+            @Drop.canceled += instance.OnDrop;
         }
 
         private void UnregisterCallbacks(IWalkActions instance)
@@ -322,6 +359,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Interact.started -= instance.OnInteract;
             @Interact.performed -= instance.OnInteract;
             @Interact.canceled -= instance.OnInteract;
+            @Drop.started -= instance.OnDrop;
+            @Drop.performed -= instance.OnDrop;
+            @Drop.canceled -= instance.OnDrop;
         }
 
         public void RemoveCallbacks(IWalkActions instance)
@@ -344,5 +384,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         void OnMovement(InputAction.CallbackContext context);
         void OnLook(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
+        void OnDrop(InputAction.CallbackContext context);
     }
 }

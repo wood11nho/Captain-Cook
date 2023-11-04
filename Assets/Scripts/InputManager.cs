@@ -22,6 +22,7 @@ public class InputManager : MonoBehaviour
         itemPickup = GetComponent<ItemPickup>();
 
         walk.Interact.performed += ctx => itemPickup.Interact();
+        walk.Drop.performed += ctx => itemPickup.Drop();
     }
 
     private void OnEnable()
