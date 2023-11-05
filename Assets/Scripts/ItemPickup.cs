@@ -9,6 +9,8 @@ public class ItemPickup : MonoBehaviour
 {
     [SerializeField]
     private LayerMask pickableLayerMask;
+    [SerializeField]
+    private LayerMask interactableLayerMask;
 
     [SerializeField]
     private Transform playerCameraTransform;
@@ -53,6 +55,17 @@ public class ItemPickup : MonoBehaviour
                 }
                 return;
             }
+            else
+            {
+                Debug.Log(hit.collider.name);
+                IUsable usable = (IUsable)hit.collider.GetComponent(typeof(IUsable));
+                if (usable != null)
+                {
+                    Debug.Log("Usable");
+                    usable.Use(gameObject);
+                    return;
+                }
+            }
 
         }
     }
@@ -85,11 +98,22 @@ public class ItemPickup : MonoBehaviour
             return;
         }
 
-        if(Physics.Raycast(playerCameraTransform.position, playerCameraTransform.forward, out hit, hitRange, pickableLayerMask))
+        if(Physics.Raycast(playerCameraTransform.position, playerCameraTransform.forward, out hit, hitRange, pickableLayerMask) || 
+            Physics.Raycast(playerCameraTransform.position, playerCameraTransform.forward, out hit, hitRange, interactableLayerMask))
         {
             hit.collider.GetComponent<HighlightObject>()?.ToggleHighlght(true);
             pickUpUI.SetActive(true);
         }
          
+    }
+
+    public Transform GetPickUpHand()
+    {
+        return pickUpHand;
+    }
+
+    public void SetPickedUpObject(GameObject obj)
+    {
+        pickedUpObject = obj;
     }
 }
