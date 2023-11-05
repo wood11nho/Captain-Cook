@@ -38,20 +38,24 @@ public class ItemPickup : MonoBehaviour
     public void Interact()
     {
         Debug.Log("Interact");
-        if(hit.collider != null && pickedUpObject == null)
+        if(hit.collider != null)
         {
             Debug.Log(hit.collider.name);
             Rigidbody rb = hit.collider.GetComponent<Rigidbody>();
             if (hit.collider.GetComponent<Ingredient>())
             {
-                Debug.Log("Ingredient");
-                pickedUpObject = hit.collider.gameObject;
-                pickedUpObject.transform.position = pickUpHand.position;
-                pickedUpObject.transform.rotation = pickUpHand.rotation;
-                pickedUpObject.transform.SetParent(pickUpHand);
-                if(rb != null)
+                if (pickedUpObject == null)
                 {
-                    rb.isKinematic = true;
+                    Debug.Log("Ingredient");
+                    pickedUpObject = hit.collider.gameObject;
+                    pickedUpObject.transform.position = pickUpHand.position;
+                    pickedUpObject.transform.rotation = pickUpHand.rotation;
+                    pickedUpObject.transform.SetParent(pickUpHand);
+                    if (rb != null)
+                    {
+                        rb.isKinematic = true;
+                    }
+                    
                 }
                 return;
             }
@@ -93,13 +97,16 @@ public class ItemPickup : MonoBehaviour
             pickUpUI.SetActive(false);
         }
 
-        if(pickedUpObject != null)
-        {
-            return;
-        }
 
-        if(Physics.Raycast(playerCameraTransform.position, playerCameraTransform.forward, out hit, hitRange, pickableLayerMask) || 
-            Physics.Raycast(playerCameraTransform.position, playerCameraTransform.forward, out hit, hitRange, interactableLayerMask))
+        if(Physics.Raycast(playerCameraTransform.position, playerCameraTransform.forward, out hit, hitRange, pickableLayerMask))
+        {
+            if (pickedUpObject == null)
+            {
+                hit.collider.GetComponent<HighlightObject>()?.ToggleHighlght(true);
+                pickUpUI.SetActive(true);
+            } 
+        }
+        else if(Physics.Raycast(playerCameraTransform.position, playerCameraTransform.forward, out hit, hitRange, interactableLayerMask))
         {
             hit.collider.GetComponent<HighlightObject>()?.ToggleHighlght(true);
             pickUpUI.SetActive(true);
@@ -115,5 +122,10 @@ public class ItemPickup : MonoBehaviour
     public void SetPickedUpObject(GameObject obj)
     {
         pickedUpObject = obj;
+    }
+
+    public GameObject GetPickedUpObject()
+    {
+        return pickedUpObject;
     }
 }
