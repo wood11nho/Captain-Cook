@@ -11,6 +11,7 @@ public class InputManager : MonoBehaviour
 
     private PlayerMotor motor;
     private PlayerLook look;
+    private ItemPickup itemPickup;
     // Start is called before the first frame update
     private void Awake()
     {
@@ -18,6 +19,10 @@ public class InputManager : MonoBehaviour
         walk = playerInput.Walk;
         motor = GetComponent<PlayerMotor>();
         look = GetComponent<PlayerLook>();
+        itemPickup = GetComponent<ItemPickup>();
+
+        walk.Interact.performed += ctx => itemPickup.Interact();
+        walk.Drop.performed += ctx => itemPickup.Drop();
     }
 
     private void OnEnable()
