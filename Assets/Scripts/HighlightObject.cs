@@ -10,7 +10,7 @@ public class HighlightObject : MonoBehaviour
     private List<Material> materials;
 
     [SerializeField]
-    private Color highlightColor = Color.yellow;
+    private Color highlightColor = new Color(1.0f, 1.0f, 1.0f, 0.25f);
 
     // Gets all materials for each renderer on awake
     private void Awake()

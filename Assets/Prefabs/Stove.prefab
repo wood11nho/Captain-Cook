@@ -149,7 +149,7 @@ GameObject:
   - component: {fileID: 1752373084638995162}
   - component: {fileID: 2091075819440962784}
   - component: {fileID: 7861917200897130817}
-  - component: {fileID: 526023400863558538}
+  - component: {fileID: 2382621433540266127}
   m_Layer: 7
   m_Name: Stove
   m_TagString: Untagged
@@ -257,7 +257,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae62e61bc0c1f0545915a24b77e4cf6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &526023400863558538
+--- !u!114 &2382621433540266127
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -271,5 +271,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   renderers:
   - {fileID: 1752373084638995162}
-  - {fileID: 8744335943631114187}
-  highlightColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  highlightColor: {r: 1, g: 1, b: 1, a: 0.25}
