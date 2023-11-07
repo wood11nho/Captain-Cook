@@ -11,19 +11,29 @@ public class IngredientSpawner : MonoBehaviour, IUsable
 
     public void Use(GameObject player)
     {
+
         ItemPickup playerItemPickupComponent = player.GetComponent<ItemPickup>();
         Transform playerPickUpHand = playerItemPickupComponent.GetPickUpHand();
-        GameObject newIngredient = Instantiate(spawnedIngredient, Vector3.zero, Quaternion.identity);
-        newIngredient.transform.position = playerPickUpHand.position;
-        newIngredient.transform.rotation = playerPickUpHand.rotation;
-        Rigidbody rb = newIngredient.GetComponent<Rigidbody>();
-        if (rb != null)
+        GameObject pickedUpObject = playerItemPickupComponent.GetPickedUpObject();
+
+        if (pickedUpObject == null)
         {
-            rb.isKinematic = true;
+            GameObject newIngredient = Instantiate(spawnedIngredient, Vector3.zero, Quaternion.identity);
+            newIngredient.transform.position = playerPickUpHand.position;
+            newIngredient.transform.rotation = playerPickUpHand.rotation;
+
+            Rigidbody rb = newIngredient.GetComponent<Rigidbody>();
+            if (rb != null)
+            {
+                rb.isKinematic = true;
+            }
+            playerItemPickupComponent.SetPickedUpObject(newIngredient);
+            newIngredient.transform.SetParent(playerPickUpHand);
         }
-        playerItemPickupComponent.SetPickedUpObject(newIngredient);
-        newIngredient.transform.SetParent(playerPickUpHand);
-        
+        else
+        {
+            Debug.Log("You already have an ingredient in your hand");
+        }
     }
 
     // Start is called before the first frame update
