@@ -52,7 +52,7 @@ public class Stove : MonoBehaviour, IUsable
                 pickedUpObject.transform.position = stoveObjectPositionTransform.position;
                 //pickedUpObject.transform.rotation = stoveObjectPositionTransform.rotation;
                 objectOnStove = pickedUpObject;
-                objectOnStove.transform.localScale = objectOnStove.transform.localScale * 0.75f;
+                objectOnStove.transform.localScale = new Vector3(0.75f, 0.75f, 0.75f);
                 Rigidbody rb = pickedUpObject.GetComponent<Rigidbody>();
                 /*
                 if (rb != null)
