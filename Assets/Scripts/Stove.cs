@@ -48,6 +48,15 @@ public class Stove : MonoBehaviour, IUsable
             else
             {
                 if(pickedUpObject.GetComponent<Ingredient>().GetCooked())
+                pickedUpObject.layer = ignoreRaycastLayerMaskInt;
+                pickedUpObject.transform.SetParent(null);
+                pickedUpObject.transform.position = stoveObjectPositionTransform.position;
+                //pickedUpObject.transform.rotation = stoveObjectPositionTransform.rotation;
+                objectOnStove = pickedUpObject;
+                objectOnStove.transform.localScale = new Vector3(0.75f, 0.75f, 0.75f);
+                Rigidbody rb = pickedUpObject.GetComponent<Rigidbody>();
+                /*
+                if (rb != null)
                 {
                     Debug.Log("You can't cook a cooked ingredient!");
                     return;
