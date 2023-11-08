@@ -47,20 +47,35 @@ public class Stove : MonoBehaviour, IUsable
             }
             else
             {
-                pickedUpObject.layer = ignoreRaycastLayerMaskInt;
-                pickedUpObject.transform.SetParent(null);
-                pickedUpObject.transform.position = stoveObjectPositionTransform.position;
-                //pickedUpObject.transform.rotation = stoveObjectPositionTransform.rotation;
-                objectOnStove = pickedUpObject;
-                objectOnStove.transform.localScale = new Vector3(0.75f, 0.75f, 0.75f);
-                Rigidbody rb = pickedUpObject.GetComponent<Rigidbody>();
-                /*
-                if (rb != null)
+                if(pickedUpObject.GetComponent<Ingredient>().GetCooked())
                 {
-                    rb.isKinematic = false;
+                    Debug.Log("You can't cook a cooked ingredient!");
+                    return;
                 }
-                */
-                playerItemPickupComponent.SetPickedUpObject(null);
+                else if (!pickedUpObject.GetComponent<Ingredient>().GetCookable())
+                {
+                    Debug.Log("You can't cook this ingredient!");
+                    return;
+                    
+                }
+                else
+                {
+                    pickedUpObject.layer = ignoreRaycastLayerMaskInt;
+                    pickedUpObject.transform.SetParent(null);
+                    pickedUpObject.transform.position = stoveObjectPositionTransform.position;
+                    //pickedUpObject.transform.rotation = stoveObjectPositionTransform.rotation;
+                    objectOnStove = pickedUpObject;
+                    objectOnStove.transform.localScale = new Vector3(0.75f, 0.75f, 0.75f);
+                    Rigidbody rb = pickedUpObject.GetComponent<Rigidbody>();
+                    /*
+                    if (rb != null)
+                    {
+                        rb.isKinematic = false;
+                    }
+                    */
+                    playerItemPickupComponent.SetPickedUpObject(null);
+                    StartCoroutine(CookIngredient(objectOnStove));
+                }
             }
             
         }
@@ -78,4 +93,26 @@ public class Stove : MonoBehaviour, IUsable
     {
         
     }
+
+    IEnumerator CookIngredient(GameObject ingredient)
+    {
+        ingredient.layer = ignoreRaycastLayerMaskInt;
+        yield return new WaitForSeconds(ingredient.GetComponent<Ingredient>().GetCookTime());
+        if(objectOnStove == null)
+        {
+            yield break;
+        }
+        GameObject cookedIngredient = Instantiate(ingredient.GetComponent<Ingredient>().GetCookedIngredient(), objectOnStove.transform.position, objectOnStove.transform.rotation);
+        cookedIngredient.transform.localScale = new Vector3(0.75f, 0.75f, 0.75f);
+        cookedIngredient.layer = ignoreRaycastLayerMaskInt;
+        Rigidbody rb = cookedIngredient.GetComponent<Rigidbody>();
+        if (rb != null)
+        {
+            rb.isKinematic = true;
+        }
+        objectOnStove = null;
+        Destroy(ingredient);
+        objectOnStove = cookedIngredient;
+    }
+
 }
