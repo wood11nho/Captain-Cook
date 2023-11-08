@@ -25,7 +25,7 @@ public class Stove : MonoBehaviour, IUsable
         {
             if (objectOnStove != null)
             {
-                if(pickedUpObject != null)
+                if (pickedUpObject != null)
                 {
                     Debug.Log("There is already an ingredient on the stove!");
                 }
@@ -42,21 +42,12 @@ public class Stove : MonoBehaviour, IUsable
                         rb.isKinematic = true;
                     }
                     playerItemPickupComponent.SetPickedUpObject(objectOnStove);
-                    objectOnStove = null;  
+                    objectOnStove = null;
                 }
             }
             else
             {
-                if(pickedUpObject.GetComponent<Ingredient>().GetCooked())
-                pickedUpObject.layer = ignoreRaycastLayerMaskInt;
-                pickedUpObject.transform.SetParent(null);
-                pickedUpObject.transform.position = stoveObjectPositionTransform.position;
-                //pickedUpObject.transform.rotation = stoveObjectPositionTransform.rotation;
-                objectOnStove = pickedUpObject;
-                objectOnStove.transform.localScale = new Vector3(0.75f, 0.75f, 0.75f);
-                Rigidbody rb = pickedUpObject.GetComponent<Rigidbody>();
-                /*
-                if (rb != null)
+                if (pickedUpObject.GetComponent<Ingredient>().GetCooked())
                 {
                     Debug.Log("You can't cook a cooked ingredient!");
                     return;
@@ -65,7 +56,7 @@ public class Stove : MonoBehaviour, IUsable
                 {
                     Debug.Log("You can't cook this ingredient!");
                     return;
-                    
+
                 }
                 else
                 {
@@ -86,7 +77,7 @@ public class Stove : MonoBehaviour, IUsable
                     StartCoroutine(CookIngredient(objectOnStove));
                 }
             }
-            
+
         }
         return;
     }
@@ -100,14 +91,14 @@ public class Stove : MonoBehaviour, IUsable
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     IEnumerator CookIngredient(GameObject ingredient)
     {
         ingredient.layer = ignoreRaycastLayerMaskInt;
         yield return new WaitForSeconds(ingredient.GetComponent<Ingredient>().GetCookTime());
-        if(objectOnStove == null)
+        if (objectOnStove == null)
         {
             yield break;
         }
