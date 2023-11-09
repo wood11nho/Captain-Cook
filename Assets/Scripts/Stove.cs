@@ -98,21 +98,25 @@ public class Stove : MonoBehaviour, IUsable
     {
         ingredient.layer = ignoreRaycastLayerMaskInt;
         yield return new WaitForSeconds(ingredient.GetComponent<Ingredient>().GetCookTime());
-        if (objectOnStove == null)
+        if (objectOnStove == ingredient)
+        {
+            GameObject cookedIngredient = Instantiate(ingredient.GetComponent<Ingredient>().GetCookedIngredient(), objectOnStove.transform.position, objectOnStove.transform.rotation);
+            cookedIngredient.transform.localScale = new Vector3(0.75f, 0.75f, 0.75f);
+            cookedIngredient.layer = ignoreRaycastLayerMaskInt;
+            Rigidbody rb = cookedIngredient.GetComponent<Rigidbody>();
+            if (rb != null)
+            {
+                rb.isKinematic = true;
+            }
+            objectOnStove = null;
+            Destroy(ingredient);
+            objectOnStove = cookedIngredient;
+        }
+        else
         {
             yield break;
         }
-        GameObject cookedIngredient = Instantiate(ingredient.GetComponent<Ingredient>().GetCookedIngredient(), objectOnStove.transform.position, objectOnStove.transform.rotation);
-        cookedIngredient.transform.localScale = new Vector3(0.75f, 0.75f, 0.75f);
-        cookedIngredient.layer = ignoreRaycastLayerMaskInt;
-        Rigidbody rb = cookedIngredient.GetComponent<Rigidbody>();
-        if (rb != null)
-        {
-            rb.isKinematic = true;
-        }
-        objectOnStove = null;
-        Destroy(ingredient);
-        objectOnStove = cookedIngredient;
+        
     }
 
 }
