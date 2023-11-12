@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 public class Stove : MonoBehaviour, IUsable
 {
     public UnityEvent OnUse => throw new System.NotImplementedException();
     private GameObject objectOnStove;
     private int ignoreRaycastLayerMaskInt;
+    public Slider cookingTimeSlider;
+    public GameObject loadingScreen;
 
     public void Use(GameObject player)
     {
@@ -43,6 +46,7 @@ public class Stove : MonoBehaviour, IUsable
                     }
                     playerItemPickupComponent.SetPickedUpObject(objectOnStove);
                     objectOnStove = null;
+                    loadingScreen.SetActive(false);
                 }
             }
             else
@@ -74,6 +78,7 @@ public class Stove : MonoBehaviour, IUsable
                     }
                     */
                     playerItemPickupComponent.SetPickedUpObject(null);
+                    StopAllCoroutines();
                     StartCoroutine(CookIngredient(objectOnStove));
                 }
             }
@@ -91,28 +96,49 @@ public class Stove : MonoBehaviour, IUsable
     // Update is called once per frame
     void Update()
     {
-
+        if (objectOnStove != null)
+        {
+            Vector3 stoveScreenPosition = Camera.main.WorldToScreenPoint(transform.position);
+            Vector3 sliderPosition = new Vector3(stoveScreenPosition.x, stoveScreenPosition.y + 100f, stoveScreenPosition.z);
+            cookingTimeSlider.transform.position = sliderPosition;
+        }
     }
 
     IEnumerator CookIngredient(GameObject ingredient)
     {
         ingredient.layer = ignoreRaycastLayerMaskInt;
-        yield return new WaitForSeconds(ingredient.GetComponent<Ingredient>().GetCookTime());
-        if (objectOnStove == null)
+        //yield return new WaitForSeconds(ingredient.GetComponent<Ingredient>().GetCookTime());
+
+        float cookTime = ingredient.GetComponent<Ingredient>().GetCookTime();
+
+        loadingScreen.SetActive(true);
+        cookingTimeSlider.value = 0f;
+        while (cookingTimeSlider.value < 1f)
+        {
+            cookingTimeSlider.value += Time.deltaTime / cookTime;
+            yield return null;
+        }
+        loadingScreen.SetActive(false);
+
+        if (objectOnStove == ingredient)
+        {
+            GameObject cookedIngredient = Instantiate(ingredient.GetComponent<Ingredient>().GetCookedIngredient(), objectOnStove.transform.position, objectOnStove.transform.rotation);
+            cookedIngredient.transform.localScale = new Vector3(0.75f, 0.75f, 0.75f);
+            cookedIngredient.layer = ignoreRaycastLayerMaskInt;
+            Rigidbody rb = cookedIngredient.GetComponent<Rigidbody>();
+            if (rb != null)
+            {
+                rb.isKinematic = true;
+            }
+            objectOnStove = null;
+            Destroy(ingredient);
+            objectOnStove = cookedIngredient;
+        }
+        else
         {
             yield break;
         }
-        GameObject cookedIngredient = Instantiate(ingredient.GetComponent<Ingredient>().GetCookedIngredient(), objectOnStove.transform.position, objectOnStove.transform.rotation);
-        cookedIngredient.transform.localScale = new Vector3(0.75f, 0.75f, 0.75f);
-        cookedIngredient.layer = ignoreRaycastLayerMaskInt;
-        Rigidbody rb = cookedIngredient.GetComponent<Rigidbody>();
-        if (rb != null)
-        {
-            rb.isKinematic = true;
-        }
-        objectOnStove = null;
-        Destroy(ingredient);
-        objectOnStove = cookedIngredient;
+        
     }
 
 }
