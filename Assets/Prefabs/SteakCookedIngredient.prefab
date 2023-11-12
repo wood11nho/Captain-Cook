@@ -182,8 +182,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cookedIngredient: {fileID: 0}
+  burntIngredient: {fileID: 5448101533092959829, guid: f2f1f0db1a9d32d4a8bdb4b7402737ad,
+    type: 3}
   cookable: 0
   cooked: 1
+  burnt: 0
+  burnTime: 5
   cookTime: 0
 --- !u!114 &7303317028892109724
 MonoBehaviour:
