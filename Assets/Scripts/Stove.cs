@@ -13,6 +13,10 @@ public class Stove : MonoBehaviour, IUsable
     public Slider cookingTimeSlider;
     public GameObject loadingScreen;
 
+    private ParticleSystem smokeParticleSystem;
+    private AudioSource fryAudioSource;
+    //private float fadeOutDuration = 1.0f;
+
     public void Use(GameObject player)
     {
         ItemPickup playerItemPickupComponent = player.GetComponent<ItemPickup>();
@@ -47,6 +51,9 @@ public class Stove : MonoBehaviour, IUsable
                     playerItemPickupComponent.SetPickedUpObject(objectOnStove);
                     objectOnStove = null;
                     loadingScreen.SetActive(false);
+                    smokeParticleSystem.Stop();
+                    fryAudioSource.Stop();
+                    InvokeRepeating("FadeOut", 0.0f, 0.1f);
                 }
             }
             else
@@ -91,6 +98,8 @@ public class Stove : MonoBehaviour, IUsable
     void Start()
     {
         ignoreRaycastLayerMaskInt = LayerMask.NameToLayer("IgnoreRaycast");
+        smokeParticleSystem = GetComponentInChildren<ParticleSystem>();
+        fryAudioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -106,6 +115,8 @@ public class Stove : MonoBehaviour, IUsable
 
     IEnumerator CookIngredient(GameObject ingredient)
     {
+        smokeParticleSystem.Play();
+        fryAudioSource.Play();
         ingredient.layer = ignoreRaycastLayerMaskInt;
         //yield return new WaitForSeconds(ingredient.GetComponent<Ingredient>().GetCookTime());
 
@@ -138,7 +149,52 @@ public class Stove : MonoBehaviour, IUsable
         {
             yield break;
         }
+        StartCoroutine(BurnIngredient(objectOnStove));
         
     }
+
+    IEnumerator BurnIngredient(GameObject ingredient)
+    {
+        ingredient.layer = ignoreRaycastLayerMaskInt;
+
+        float burnTime = ingredient.GetComponent<Ingredient>().GetBurnTime();
+        yield return new WaitForSeconds(burnTime);
+
+        if (objectOnStove == ingredient)
+        {
+            GameObject burntIngredient = Instantiate(ingredient.GetComponent<Ingredient>().GetBurntIngredient(), objectOnStove.transform.position, objectOnStove.transform.rotation);
+            burntIngredient.transform.localScale = new Vector3(0.75f, 0.75f, 0.75f);
+            burntIngredient.layer = ignoreRaycastLayerMaskInt;
+            Rigidbody rb = burntIngredient.GetComponent<Rigidbody>();
+            if (rb != null)
+            {
+                rb.isKinematic = true;
+            }
+            objectOnStove = null;
+            Destroy(ingredient);
+            objectOnStove = burntIngredient;
+        }
+        else
+        {
+            yield break;
+        }
+
+
+    }
+
+    /*
+    void FadeOut()
+    {
+        // Gradually decrease the volume
+        fryAudioSource.volume -= 0.1f * Time.deltaTime / fadeOutDuration;
+
+        // If volume is very low or negative, stop the audio and cancel the InvokeRepeating
+        if (fryAudioSource.volume <= 0.0f)
+        {
+            fryAudioSource.Stop();
+            CancelInvoke("FadeOut");
+        }
+    }
+    */
 
 }
