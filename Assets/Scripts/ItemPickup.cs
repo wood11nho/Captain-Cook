@@ -32,7 +32,7 @@ public class ItemPickup : MonoBehaviour
 
     private void Start()
     {
-        
+
     }
 
     public void Interact()
@@ -111,7 +111,6 @@ public class ItemPickup : MonoBehaviour
             hit.collider.GetComponent<HighlightObject>()?.ToggleHighlght(true);
             pickUpUI.SetActive(true);
         }
-         
     }
 
     public Transform GetPickUpHand()

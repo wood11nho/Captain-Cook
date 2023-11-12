@@ -15,7 +15,7 @@ public class Stove : MonoBehaviour, IUsable
 
     private ParticleSystem smokeParticleSystem;
     private AudioSource fryAudioSource;
-    //private float fadeOutDuration = 1.0f;
+    private float fadeOutDuration = 1.0f;
 
     public void Use(GameObject player)
     {
@@ -52,8 +52,7 @@ public class Stove : MonoBehaviour, IUsable
                     objectOnStove = null;
                     loadingScreen.SetActive(false);
                     smokeParticleSystem.Stop();
-                    fryAudioSource.Stop();
-                    InvokeRepeating("FadeOut", 0.0f, 0.1f);
+                    StartCoroutine(FadeOutRoutine());
                 }
             }
             else
@@ -182,19 +181,19 @@ public class Stove : MonoBehaviour, IUsable
 
     }
 
-    /*
-    void FadeOut()
+    IEnumerator FadeOutRoutine()
     {
-        // Gradually decrease the volume
-        fryAudioSource.volume -= 0.1f * Time.deltaTime / fadeOutDuration;
+        float startVolume = fryAudioSource.volume;
 
-        // If volume is very low or negative, stop the audio and cancel the InvokeRepeating
-        if (fryAudioSource.volume <= 0.0f)
+        while (fryAudioSource.volume > 0)
         {
-            fryAudioSource.Stop();
-            CancelInvoke("FadeOut");
+            fryAudioSource.volume -= startVolume * Time.deltaTime / fadeOutDuration;
+
+            yield return null;
         }
+
+        fryAudioSource.Stop();
+        fryAudioSource.volume = startVolume;
     }
-    */
 
 }
