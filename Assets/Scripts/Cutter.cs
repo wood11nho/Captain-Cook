@@ -12,7 +12,7 @@ public class Cutter : MonoBehaviour, IUsable
     {
         ItemPickup playerItemPickupComponent = player.GetComponent<ItemPickup>();
         Transform playerPickUpHand = playerItemPickupComponent.GetPickUpHand();
-        Transform cutterObjectPositionTranform = transform.GetChild(1);
+        Transform cutterObjectPositionTranform = transform.GetChild(0);
         GameObject pickedUpObject = playerItemPickupComponent.GetPickedUpObject();
         if (pickedUpObject == null && objectOnCutter == null)
         {
@@ -26,20 +26,35 @@ public class Cutter : MonoBehaviour, IUsable
             }
             else
             {
-                pickedUpObject.layer = ignoreRaycastLayerMaskInt;
-                pickedUpObject.transform.SetParent(null);
-                pickedUpObject.transform.position = cutterObjectPositionTranform.position;
-                pickedUpObject.transform.rotation = cutterObjectPositionTranform.rotation;
-                objectOnCutter = pickedUpObject;
-                Rigidbody rb = pickedUpObject.GetComponent<Rigidbody>();
-                /*
-                if (rb != null)
+                if (!pickedUpObject.GetComponent<Ingredient>().GetCuttable())
                 {
-                    rb.isKinematic = false;
+                    Debug.Log("You can't cut this ingredient!");
                 }
-                */
-                playerItemPickupComponent.SetPickedUpObject(null);
-                StartCoroutine(StopPlayer(player));
+                else
+                {
+                    if (pickedUpObject.GetComponent<Ingredient>().GetCut())
+                    {
+                        Debug.Log("This ingredient is already cut!");
+                    }
+                    else
+                    {
+                        pickedUpObject.layer = ignoreRaycastLayerMaskInt;
+                        pickedUpObject.transform.SetParent(null);
+                        pickedUpObject.transform.position = cutterObjectPositionTranform.position;
+                        pickedUpObject.transform.rotation = cutterObjectPositionTranform.rotation;
+                        objectOnCutter = pickedUpObject;
+                        Rigidbody rb = pickedUpObject.GetComponent<Rigidbody>();
+                        /*
+                        if (rb != null)
+                        {
+                            rb.isKinematic = false;
+                        }
+                        */
+                        playerItemPickupComponent.SetPickedUpObject(null);
+                        StartCoroutine(StopPlayer(player));
+                    }
+                }
+                
                 
             }
 
@@ -71,6 +86,7 @@ public class Cutter : MonoBehaviour, IUsable
         {
             rb.isKinematic = true;
         }
+        objectOnCutter.GetComponent<Ingredient>().SetCut(true);
         playerItemPickupComponent.SetPickedUpObject(objectOnCutter);
         objectOnCutter = null;
         gameObject.layer = LayerMask.NameToLayer("Interactable");
