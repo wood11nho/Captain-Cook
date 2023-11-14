@@ -130,7 +130,7 @@ public class Stove : MonoBehaviour, IUsable
         }
         loadingScreen.SetActive(false);
 
-        if (objectOnStove == ingredient)
+        if (objectOnStove != null && objectOnStove == ingredient)
         {
             GameObject cookedIngredient = Instantiate(ingredient.GetComponent<Ingredient>().GetCookedIngredient(), objectOnStove.transform.position, objectOnStove.transform.rotation);
             cookedIngredient.transform.localScale = new Vector3(0.75f, 0.75f, 0.75f);
@@ -159,7 +159,7 @@ public class Stove : MonoBehaviour, IUsable
         float burnTime = ingredient.GetComponent<Ingredient>().GetBurnTime();
         yield return new WaitForSeconds(burnTime);
 
-        if (objectOnStove == ingredient)
+        if (objectOnStove != null && objectOnStove == ingredient)
         {
             GameObject burntIngredient = Instantiate(ingredient.GetComponent<Ingredient>().GetBurntIngredient(), objectOnStove.transform.position, objectOnStove.transform.rotation);
             burntIngredient.transform.localScale = new Vector3(0.75f, 0.75f, 0.75f);
