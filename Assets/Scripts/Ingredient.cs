@@ -12,7 +12,13 @@ public class Ingredient : MonoBehaviour
     private GameObject burntIngredient;
 
     [SerializeField]
+    private GameObject cutIngredient;
+
+    [SerializeField]
     private bool cookable;
+
+    [SerializeField]
+    private bool cuttable;
 
     [SerializeField]
     private bool cooked;
@@ -21,10 +27,16 @@ public class Ingredient : MonoBehaviour
     private bool burnt;
 
     [SerializeField]
+    private bool cut;
+
+    [SerializeField]
     private float burnTime;
 
     [SerializeField]
     private float cookTime;
+
+    [SerializeField]
+    private float cutTime;
 
     // Start is called before the first frame update
     void Start()
@@ -48,9 +60,19 @@ public class Ingredient : MonoBehaviour
         return cookable;
     }
 
+    public bool GetCuttable()
+    {
+        return cuttable;
+    }
+
     public bool GetCooked()
     {
         return cooked;
+    }
+
+    public bool GetCut()
+    {
+        return cut;
     }
 
     public float GetCookTime()
@@ -58,9 +80,18 @@ public class Ingredient : MonoBehaviour
         return cookTime;
     }
 
+    public float GetCutTime()
+    {
+        return cutTime;
+    }
+
     public void SetCooked(bool val)
     {
         cooked = val;
+    }
+    public void SetCut(bool val)
+    {
+        cut = val;
     }
     
     public bool GetBurnt()
@@ -72,9 +103,20 @@ public class Ingredient : MonoBehaviour
     {
         return burnTime;
     }
+
+    public void SetBurnt(bool val)
+    {
+        burnt = val;
+    }
+
     public GameObject GetBurntIngredient()
     {
         return burntIngredient;
+    }
+
+    public GameObject GetCutIngredient()
+    {
+        return cutIngredient;
     }
 
 }
