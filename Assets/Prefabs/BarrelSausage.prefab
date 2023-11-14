@@ -216,7 +216,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d58ba5c6df914a447995889d784e6dcc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnedIngredient: {fileID: 4179205776943551302, guid: 219e253d2043b4bf382f7fbe08130e26,
+  spawnedIngredient: {fileID: 2312146200494603153, guid: 89c18f6dca62d8e47a23a1a03ea94cf3,
     type: 3}
 --- !u!114 &-4373771142341946622
 MonoBehaviour:
@@ -233,6 +233,7 @@ MonoBehaviour:
   renderers:
   - {fileID: 7703960396760872401}
   highlightColor: {r: 1, g: 1, b: 1, a: 0.25}
+  originalColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!4 &7703960396763166513 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 06d9366f487453c4dae7c49cf614a85c,
