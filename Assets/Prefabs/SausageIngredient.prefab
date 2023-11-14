@@ -78,6 +78,7 @@ MonoBehaviour:
   renderers:
   - {fileID: 2984958125404524344}
   highlightColor: {r: 1, g: 1, b: 1, a: 0.25}
+  originalColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &8393162869433360878
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -101,7 +102,7 @@ MonoBehaviour:
   cut: 0
   burnTime: 0
   cookTime: 0
-  cutTime: 0
+  cutTime: 5
 --- !u!65 &1238914851414072310
 BoxCollider:
   m_ObjectHideFlags: 0

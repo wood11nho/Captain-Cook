@@ -13,8 +13,6 @@ public class Cutter : MonoBehaviour, IUsable
     public void Use(GameObject player)
     {
         ItemPickup playerItemPickupComponent = player.GetComponent<ItemPickup>();
-        Transform playerPickUpHand = playerItemPickupComponent.GetPickUpHand();
-        Transform cutterObjectPositionTranform = transform.GetChild(0);
         GameObject pickedUpObject = playerItemPickupComponent.GetPickedUpObject();
         if (pickedUpObject == null && objectOnCutter == null)
         {
@@ -55,7 +53,6 @@ public class Cutter : MonoBehaviour, IUsable
     {
         cutterAnimator.SetBool("isCutting", true);
         ItemPickup playerItemPickupComponent = player.GetComponent<ItemPickup>();
-        Transform playerPickUpHand = playerItemPickupComponent.GetPickUpHand();
         Transform cutterObjectPositionTranform = transform.GetChild(0);
         GameObject pickedUpObject = playerItemPickupComponent.GetPickedUpObject();
         pickedUpObject.layer = ignoreRaycastLayerMaskInt;
@@ -68,7 +65,8 @@ public class Cutter : MonoBehaviour, IUsable
         CharacterController controller = player.GetComponent<CharacterController>();
         controller.enabled = false;
         gameObject.layer = ignoreRaycastLayerMaskInt; 
-        yield return new WaitForSeconds(5f);
+        playerItemPickupComponent.enabled = false;
+        yield return new WaitForSeconds(objectOnCutter.GetComponent<Ingredient>().GetCutTime());
         StartCoroutine(StartPlayer(player));
     }
 
@@ -79,6 +77,7 @@ public class Cutter : MonoBehaviour, IUsable
         Transform playerPickUpHand = playerItemPickupComponent.GetPickUpHand();
         CharacterController controller = player.GetComponent<CharacterController>();
         controller.enabled = true;
+        playerItemPickupComponent.enabled = true;
         GameObject cutObject = Instantiate(objectOnCutter.GetComponent<Ingredient>().GetCutIngredient(), playerPickUpHand.position, playerPickUpHand.rotation);
         cutObject.layer = LayerMask.NameToLayer("Pickable");
         Rigidbody rb = cutObject.GetComponent<Rigidbody>();
