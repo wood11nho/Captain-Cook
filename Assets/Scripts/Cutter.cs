@@ -8,6 +8,7 @@ public class Cutter : MonoBehaviour, IUsable
     public UnityEvent OnUse => throw new System.NotImplementedException();
     private GameObject objectOnCutter;
     private int ignoreRaycastLayerMaskInt;
+    private AudioSource cutterAudioSource;
 
     private Animator cutterAnimator;
     public void Use(GameObject player)
@@ -52,6 +53,7 @@ public class Cutter : MonoBehaviour, IUsable
     IEnumerator StopPlayerAndCut(GameObject player)
     {
         cutterAnimator.SetBool("isCutting", true);
+        cutterAudioSource.Play();
         ItemPickup playerItemPickupComponent = player.GetComponent<ItemPickup>();
         Transform cutterObjectPositionTranform = transform.GetChild(0);
         GameObject pickedUpObject = playerItemPickupComponent.GetPickedUpObject();
@@ -73,6 +75,7 @@ public class Cutter : MonoBehaviour, IUsable
     IEnumerator StartPlayer(GameObject player)
     {
         cutterAnimator.SetBool("isCutting", false);
+        cutterAudioSource.Stop();
         ItemPickup playerItemPickupComponent = player.GetComponent<ItemPickup>();
         Transform playerPickUpHand = playerItemPickupComponent.GetPickUpHand();
         CharacterController controller = player.GetComponent<CharacterController>();
@@ -98,6 +101,7 @@ public class Cutter : MonoBehaviour, IUsable
     {
         ignoreRaycastLayerMaskInt = LayerMask.NameToLayer("IgnoreRaycast");
         cutterAnimator = GetComponent<Animator>();
+        cutterAudioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
