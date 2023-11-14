@@ -8,6 +8,8 @@ public class Cutter : MonoBehaviour, IUsable
     public UnityEvent OnUse => throw new System.NotImplementedException();
     private GameObject objectOnCutter;
     private int ignoreRaycastLayerMaskInt;
+
+    private Animator cutterAnimator;
     public void Use(GameObject player)
     {
         ItemPickup playerItemPickupComponent = player.GetComponent<ItemPickup>();
@@ -38,20 +40,7 @@ public class Cutter : MonoBehaviour, IUsable
                     }
                     else
                     {
-                        pickedUpObject.layer = ignoreRaycastLayerMaskInt;
-                        pickedUpObject.transform.SetParent(null);
-                        pickedUpObject.transform.position = cutterObjectPositionTranform.position;
-                        pickedUpObject.transform.rotation = cutterObjectPositionTranform.rotation;
-                        objectOnCutter = pickedUpObject;
-                        Rigidbody rb = pickedUpObject.GetComponent<Rigidbody>();
-                        /*
-                        if (rb != null)
-                        {
-                            rb.isKinematic = false;
-                        }
-                        */
-                        playerItemPickupComponent.SetPickedUpObject(null);
-                        StartCoroutine(StopPlayer(player));
+                        StartCoroutine(StopPlayerAndCut(player));
                     }
                 }
                 
@@ -62,8 +51,20 @@ public class Cutter : MonoBehaviour, IUsable
         return;
     }
 
-    IEnumerator StopPlayer(GameObject player)
+    IEnumerator StopPlayerAndCut(GameObject player)
     {
+        cutterAnimator.SetBool("isCutting", true);
+        ItemPickup playerItemPickupComponent = player.GetComponent<ItemPickup>();
+        Transform playerPickUpHand = playerItemPickupComponent.GetPickUpHand();
+        Transform cutterObjectPositionTranform = transform.GetChild(0);
+        GameObject pickedUpObject = playerItemPickupComponent.GetPickedUpObject();
+        pickedUpObject.layer = ignoreRaycastLayerMaskInt;
+        pickedUpObject.transform.SetParent(null);
+        pickedUpObject.transform.position = cutterObjectPositionTranform.position;
+        pickedUpObject.transform.rotation = cutterObjectPositionTranform.rotation;
+        objectOnCutter = pickedUpObject;
+        Rigidbody rb = pickedUpObject.GetComponent<Rigidbody>();
+        playerItemPickupComponent.SetPickedUpObject(null);
         CharacterController controller = player.GetComponent<CharacterController>();
         controller.enabled = false;
         gameObject.layer = ignoreRaycastLayerMaskInt; 
@@ -73,21 +74,21 @@ public class Cutter : MonoBehaviour, IUsable
 
     IEnumerator StartPlayer(GameObject player)
     {
+        cutterAnimator.SetBool("isCutting", false);
         ItemPickup playerItemPickupComponent = player.GetComponent<ItemPickup>();
         Transform playerPickUpHand = playerItemPickupComponent.GetPickUpHand();
         CharacterController controller = player.GetComponent<CharacterController>();
         controller.enabled = true;
-        objectOnCutter.layer = LayerMask.NameToLayer("Pickable");
-        objectOnCutter.transform.SetParent(playerPickUpHand);
-        objectOnCutter.transform.position = playerPickUpHand.position;
-        objectOnCutter.transform.rotation = playerPickUpHand.rotation;
-        Rigidbody rb = objectOnCutter.GetComponent<Rigidbody>();
+        GameObject cutObject = Instantiate(objectOnCutter.GetComponent<Ingredient>().GetCutIngredient(), playerPickUpHand.position, playerPickUpHand.rotation);
+        cutObject.layer = LayerMask.NameToLayer("Pickable");
+        Rigidbody rb = cutObject.GetComponent<Rigidbody>();
         if (rb != null)
         {
             rb.isKinematic = true;
         }
-        objectOnCutter.GetComponent<Ingredient>().SetCut(true);
-        playerItemPickupComponent.SetPickedUpObject(objectOnCutter);
+        playerItemPickupComponent.SetPickedUpObject(cutObject);
+        cutObject.transform.SetParent(playerPickUpHand);
+        Destroy(objectOnCutter);
         objectOnCutter = null;
         gameObject.layer = LayerMask.NameToLayer("Interactable");
         yield return null;
@@ -97,6 +98,7 @@ public class Cutter : MonoBehaviour, IUsable
     void Start()
     {
         ignoreRaycastLayerMaskInt = LayerMask.NameToLayer("IgnoreRaycast");
+        cutterAnimator = GetComponent<Animator>();
     }
 
     // Update is called once per frame

@@ -114,4 +114,9 @@ public class Ingredient : MonoBehaviour
         return burntIngredient;
     }
 
+    public GameObject GetCutIngredient()
+    {
+        return cutIngredient;
+    }
+
 }
