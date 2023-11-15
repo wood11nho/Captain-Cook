@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 100000, guid: 06d9366f487453c4dae7c49cf614a85c, type: 3}
       propertyPath: m_Name
-      value: BarrelBread
+      value: BarrelPotato
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 06d9366f487453c4dae7c49cf614a85c, type: 3}
       propertyPath: m_Layer
@@ -127,7 +127,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d58ba5c6df914a447995889d784e6dcc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnedIngredient: {fileID: 7159347947861450724}
+  spawnedIngredient: {fileID: 8238395751750635857, guid: 8938deb146e696c44925bd33bba815c7,
+    type: 3}
 --- !u!114 &8503556369736728731
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -233,12 +234,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cb10480ce1a40437796a4a0eb8d0d498, type: 3}
---- !u!1 &7159347947861450724 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: cb10480ce1a40437796a4a0eb8d0d498,
-    type: 3}
-  m_PrefabInstance: {fileID: 8041868552258003637}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7498719510892135774 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: cb10480ce1a40437796a4a0eb8d0d498,
