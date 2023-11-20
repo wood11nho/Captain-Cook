@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4931468559279214}
   - component: {fileID: 33993618454382146}
   - component: {fileID: 23787377401671618}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Onion_Mid__300_Tris_
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -61,7 +61,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: ec30bb5fb00caa84aa1b717f944875a6, type: 2}
+  - {fileID: 2100000, guid: b12a3ca74edf5104098af3ffa1f22087, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -92,7 +92,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4455026889930626}
-  m_Layer: 0
+  - component: {fileID: 8553213157664515340}
+  - component: {fileID: 3200195048807840812}
+  - component: {fileID: 5733173790923084128}
+  - component: {fileID: -6855428105603840532}
+  m_Layer: 6
   m_Name: Onion
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -108,8 +112,8 @@ Transform:
   m_GameObject: {fileID: 1500203809658142}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -14.259998, y: 2.3393013, z: -96.97}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -14.312, y: 2.3393, z: -96.97}
+  m_LocalScale: {x: 0.05871605, y: 0.05871605, z: 0.05871605}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4764497475765570}
@@ -117,6 +121,96 @@ Transform:
   - {fileID: 4235522712695776}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!54 &8553213157664515340
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1500203809658142}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 1
+--- !u!114 &3200195048807840812
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1500203809658142}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 654c23410ecee3d44bc894de2960aca6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  renderers:
+  - {fileID: 23782699825701364}
+  - {fileID: 23133247821929636}
+  - {fileID: 23787377401671618}
+  highlightColor: {r: 1, g: 1, b: 1, a: 0.3764706}
+  originalColor: {r: 0, g: 0, b: 0, a: 0}
+--- !u!114 &5733173790923084128
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1500203809658142}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b41606f75766874f9f93e15236b6563, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cookedIngredient: {fileID: 0}
+  burntIngredient: {fileID: 0}
+  cutIngredient: {fileID: 8204877945777266922, guid: d80a3798f1f3ae946b9a4401e60be6c9,
+    type: 3}
+  cookable: 0
+  cuttable: 1
+  cooked: 0
+  burnt: 0
+  cut: 0
+  burnTime: 0
+  cookTime: 0
+  cutTime: 5
+--- !u!65 &-6855428105603840532
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1500203809658142}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 8, y: 8, z: 8}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1651170007367626
 GameObject:
   m_ObjectHideFlags: 0
@@ -128,7 +222,7 @@ GameObject:
   - component: {fileID: 4764497475765570}
   - component: {fileID: 33066576193131134}
   - component: {fileID: 23782699825701364}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Onion_High__715_Tris_
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -178,7 +272,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: ec30bb5fb00caa84aa1b717f944875a6, type: 2}
+  - {fileID: 2100000, guid: 2621423fe2be32a4e9e9240100ed25d2, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -211,7 +305,7 @@ GameObject:
   - component: {fileID: 4235522712695776}
   - component: {fileID: 33834690846359570}
   - component: {fileID: 23133247821929636}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Onion_Low__180_Tris_
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -261,7 +355,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: ec30bb5fb00caa84aa1b717f944875a6, type: 2}
+  - {fileID: 2100000, guid: 0ba055b12c9e79343862671b993dabd6, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

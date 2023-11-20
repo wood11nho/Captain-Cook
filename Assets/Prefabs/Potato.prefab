@@ -12,6 +12,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Potato
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 46db98df67a47854fa3429f37537d92c, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 100004, guid: 46db98df67a47854fa3429f37537d92c, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 100006, guid: 46db98df67a47854fa3429f37537d92c, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 46db98df67a47854fa3429f37537d92c, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.113074034
