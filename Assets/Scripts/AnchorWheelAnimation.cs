@@ -4,19 +4,27 @@ using UnityEngine.Events;
 
 public class AnchorWheelAnimation : MonoBehaviour, IUsable
 {
-    private RaycastHit hit;
     public UnityEvent OnUse => throw new System.NotImplementedException();
     [SerializeField]
     bool startGame = false;
     public Camera mainCamera;
     public Camera anchorCamera;
     public GameObject anchor;
+    public AudioClip newTrack;
+    private AudioManager audioManager;
+
+    void Start()
+    {
+        audioManager = FindObjectOfType<AudioManager>();
+    }
 
     public void Use(GameObject player)
     {
         startGame = !startGame;
         Debug.Log(startGame);
         gameObject.GetComponent<Animator>().SetBool("startGame", startGame);
+        //change the background music
+        audioManager.changeBackgroundMusic(newTrack);
 
         // Trigger the coroutine for switching cameras with a delay
         StartCoroutine(SwitchCamerasWithDelay());
@@ -61,6 +69,9 @@ public class AnchorWheelAnimation : MonoBehaviour, IUsable
         mainCamera.enabled = false;
         anchorCamera.enabled = false;
     }
+
+   
+
 
     // Update is called once per frame
     void Update()

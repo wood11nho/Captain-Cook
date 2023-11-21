@@ -1200,6 +1200,7 @@ GameObject:
   m_Component:
   - component: {fileID: 617129339}
   - component: {fileID: 617129338}
+  - component: {fileID: 617129340}
   m_Layer: 0
   m_Name: MusicPlayer
   m_TagString: Untagged
@@ -1318,6 +1319,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &617129340
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 617129337}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 93381a2e60f4cd340bee31c5bd64d585, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  backgroundMusic: {fileID: 617129338}
 --- !u!1 &618829926
 GameObject:
   m_ObjectHideFlags: 0
@@ -3217,6 +3231,7 @@ MonoBehaviour:
   mainCamera: {fileID: 240809311}
   anchorCamera: {fileID: 1987543075}
   anchor: {fileID: 0}
+  newTrack: {fileID: 0}
 --- !u!64 &1288350064
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -4472,6 +4487,7 @@ MonoBehaviour:
   mainCamera: {fileID: 240809311}
   anchorCamera: {fileID: 1987543075}
   anchor: {fileID: 1053197569}
+  newTrack: {fileID: 8300000, guid: 4b5cd678e8116fc42a798cf6125f6bd0, type: 3}
 --- !u!54 &1827235303
 Rigidbody:
   m_ObjectHideFlags: 0
