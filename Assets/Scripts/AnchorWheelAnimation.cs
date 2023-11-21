@@ -14,16 +14,15 @@ public class AnchorWheelAnimation : MonoBehaviour, IUsable
 
 
 
-    void Start()
-    {
-        
-    }
+   
 
     public void Use(GameObject player)
     {
-        Debug.Log("Interact");
         startGame = !startGame;
-        gameObject.GetComponent<Animator>().SetBool("isOpened", startGame);
+        Debug.Log(startGame);
+        gameObject.GetComponent<Animator>().SetBool("startGame", startGame);
+        //change camera position
+        
 
 
     }
