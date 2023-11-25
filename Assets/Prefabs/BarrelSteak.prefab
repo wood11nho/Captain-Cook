@@ -232,7 +232,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   renderers:
   - {fileID: 7703960396760872401}
-  highlightColor: {r: 1, g: 1, b: 1, a: 0.25}
+  originalColor: {r: 0, g: 0, b: 0, a: 0}
+  blinkFrequency: 0.5
 --- !u!4 &7703960396763166513 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 06d9366f487453c4dae7c49cf614a85c,

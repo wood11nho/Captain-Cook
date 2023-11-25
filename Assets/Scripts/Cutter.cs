@@ -17,6 +17,7 @@ public class Cutter : MonoBehaviour, IUsable
         GameObject pickedUpObject = playerItemPickupComponent.GetPickedUpObject();
         if (pickedUpObject == null && objectOnCutter == null)
         {
+
             Debug.Log("You have to grab an ingredient to cut it!");
         }
         else
@@ -39,6 +40,7 @@ public class Cutter : MonoBehaviour, IUsable
                     }
                     else
                     {
+
                         StartCoroutine(StopPlayerAndCut(player));
                     }
                 }

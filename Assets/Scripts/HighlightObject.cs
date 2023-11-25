@@ -45,6 +45,7 @@ public class HighlightObject : MonoBehaviour
             foreach (Material material in materials)
             {
                 material.DisableKeyword("_EMISSION");
+
             }
         }
     }
