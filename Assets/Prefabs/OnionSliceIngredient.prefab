@@ -1131,7 +1131,7 @@ GameObject:
   - component: {fileID: 7044261524329336660}
   - component: {fileID: 5699167423197891940}
   m_Layer: 6
-  m_Name: OnionSlice
+  m_Name: OnionSliceIngredient
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

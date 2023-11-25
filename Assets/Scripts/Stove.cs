@@ -22,7 +22,7 @@ public class Stove : MonoBehaviour, IUsable
         ItemPickup playerItemPickupComponent = player.GetComponent<ItemPickup>();
         Transform playerPickUpHand = playerItemPickupComponent.GetPickUpHand();
         Transform stoveObjectPositionTransform = transform.GetChild(0);
-        GameObject pickedUpObject = playerItemPickupComponent.GetPickedUpObject();
+        GameObject pickedUpObject = playerItemPickupComponent.GetPickedUpObject(); 
 
         if (pickedUpObject == null && objectOnStove == null)
         {
@@ -42,7 +42,7 @@ public class Stove : MonoBehaviour, IUsable
                     objectOnStove.transform.SetParent(playerPickUpHand);
                     objectOnStove.transform.position = playerPickUpHand.position;
                     objectOnStove.transform.rotation = playerPickUpHand.rotation;
-                    objectOnStove.transform.localScale = Vector3.one;
+                    objectOnStove.transform.localScale = objectOnStove.transform.localScale * 1.33f;
                     Rigidbody rb = objectOnStove.GetComponent<Rigidbody>();
                     if (rb != null)
                     {
