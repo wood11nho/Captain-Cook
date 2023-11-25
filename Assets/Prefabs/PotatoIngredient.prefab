@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 100000, guid: 46db98df67a47854fa3429f37537d92c, type: 3}
       propertyPath: m_Name
-      value: Potato
+      value: PotatoIngredient
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 46db98df67a47854fa3429f37537d92c, type: 3}
       propertyPath: m_Layer
@@ -89,16 +89,28 @@ PrefabInstance:
       value: -13.6
       objectReference: {fileID: 0}
     - target: {fileID: 400006, guid: 46db98df67a47854fa3429f37537d92c, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 400006, guid: 46db98df67a47854fa3429f37537d92c, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 400006, guid: 46db98df67a47854fa3429f37537d92c, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 400006, guid: 46db98df67a47854fa3429f37537d92c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 3.06
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400006, guid: 46db98df67a47854fa3429f37537d92c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.15
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400006, guid: 46db98df67a47854fa3429f37537d92c, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -8.3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2300002, guid: 46db98df67a47854fa3429f37537d92c, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -107,10 +119,11 @@ PrefabInstance:
     - target: {fileID: 2300004, guid: 46db98df67a47854fa3429f37537d92c, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: ac9369c926d0fcf40a38a39859d6d192, type: 2}
+      objectReference: {fileID: 2100000, guid: ba5631b08f955b04393ec020439a4f34, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 100002, guid: 46db98df67a47854fa3429f37537d92c, type: 3}
+    - {fileID: 100004, guid: 46db98df67a47854fa3429f37537d92c, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 100000, guid: 46db98df67a47854fa3429f37537d92c,
@@ -134,12 +147,6 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 4716038259451203260}
   m_SourcePrefab: {fileID: 100100000, guid: 46db98df67a47854fa3429f37537d92c, type: 3}
---- !u!23 &8238395751748439955 stripped
-MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: 2300002, guid: 46db98df67a47854fa3429f37537d92c,
-    type: 3}
-  m_PrefabInstance: {fileID: 8238395751750604785}
-  m_PrefabAsset: {fileID: 0}
 --- !u!23 &8238395751748439957 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: 2300004, guid: 46db98df67a47854fa3429f37537d92c,
@@ -231,7 +238,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   renderers:
-  - {fileID: 8238395751748439955}
   - {fileID: 8238395751748439957}
   highlightColor: {r: 0.5, g: 0.5, b: 0.5, a: 0.25}
   originalColor: {r: 0, g: 0, b: 0, a: 0}
@@ -281,5 +287,5 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 4.983554, y: 3.143544, z: 10.107874}
-  m_Center: {x: 2.2722719, y: 1.0717704, z: -10.608568}
+  m_Size: {x: 2.967887, y: 2.6161296, z: 4.5021605}
+  m_Center: {x: -0.08999653, y: 0.3416201, z: -0.007654103}
