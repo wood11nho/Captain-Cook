@@ -22,7 +22,7 @@ public class Stove : MonoBehaviour, IUsable
         ItemPickup playerItemPickupComponent = player.GetComponent<ItemPickup>();
         Transform playerPickUpHand = playerItemPickupComponent.GetPickUpHand();
         Transform stoveObjectPositionTransform = transform.GetChild(0);
-        GameObject pickedUpObject = playerItemPickupComponent.GetPickedUpObject();
+        GameObject pickedUpObject = playerItemPickupComponent.GetPickedUpObject(); 
 
         if (pickedUpObject == null && objectOnStove == null)
         {
@@ -42,7 +42,7 @@ public class Stove : MonoBehaviour, IUsable
                     objectOnStove.transform.SetParent(playerPickUpHand);
                     objectOnStove.transform.position = playerPickUpHand.position;
                     objectOnStove.transform.rotation = playerPickUpHand.rotation;
-                    objectOnStove.transform.localScale = Vector3.one;
+                    objectOnStove.transform.localScale = objectOnStove.transform.localScale * 1.33f;
                     Rigidbody rb = objectOnStove.GetComponent<Rigidbody>();
                     if (rb != null)
                     {
@@ -75,7 +75,7 @@ public class Stove : MonoBehaviour, IUsable
                     pickedUpObject.transform.position = stoveObjectPositionTransform.position;
                     //pickedUpObject.transform.rotation = stoveObjectPositionTransform.rotation;
                     objectOnStove = pickedUpObject;
-                    objectOnStove.transform.localScale = new Vector3(0.75f, 0.75f, 0.75f);
+                    objectOnStove.transform.localScale = objectOnStove.transform.localScale * 0.75f;
                     Rigidbody rb = pickedUpObject.GetComponent<Rigidbody>();
                     /*
                     if (rb != null)
@@ -133,7 +133,7 @@ public class Stove : MonoBehaviour, IUsable
         if (objectOnStove != null && objectOnStove == ingredient)
         {
             GameObject cookedIngredient = Instantiate(ingredient.GetComponent<Ingredient>().GetCookedIngredient(), objectOnStove.transform.position, objectOnStove.transform.rotation);
-            cookedIngredient.transform.localScale = new Vector3(0.75f, 0.75f, 0.75f);
+            cookedIngredient.transform.localScale = cookedIngredient.transform.localScale * 0.75f;
             cookedIngredient.layer = ignoreRaycastLayerMaskInt;
             Rigidbody rb = cookedIngredient.GetComponent<Rigidbody>();
             if (rb != null)
@@ -162,7 +162,7 @@ public class Stove : MonoBehaviour, IUsable
         if (objectOnStove != null && objectOnStove == ingredient)
         {
             GameObject burntIngredient = Instantiate(ingredient.GetComponent<Ingredient>().GetBurntIngredient(), objectOnStove.transform.position, objectOnStove.transform.rotation);
-            burntIngredient.transform.localScale = new Vector3(0.75f, 0.75f, 0.75f);
+            burntIngredient.transform.localScale = ingredient.transform.localScale;
             burntIngredient.layer = ignoreRaycastLayerMaskInt;
             Rigidbody rb = burntIngredient.GetComponent<Rigidbody>();
             if (rb != null)

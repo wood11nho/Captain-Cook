@@ -94,9 +94,11 @@ GameObject:
   - component: {fileID: 8250931180475408926}
   - component: {fileID: 7704806956225189396}
   - component: {fileID: 2533670095668547438}
-  - component: {fileID: 2554534495953848218}
-  m_Layer: 0
-  m_Name: BreadLoaf
+  - component: {fileID: 8803947476766781686}
+  - component: {fileID: 4508214886630369892}
+  - component: {fileID: 8006243533138526463}
+  m_Layer: 6
+  m_Name: BreadLoafIngredient
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -185,8 +187,52 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &2554534495953848218
-MeshCollider:
+--- !u!54 &8803947476766781686
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1603381299231053549}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 1
+--- !u!114 &4508214886630369892
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1603381299231053549}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 654c23410ecee3d44bc894de2960aca6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  renderers:
+  - {fileID: 9127592672477135378}
+  - {fileID: 312090680706299302}
+  highlightColor: {r: 0.5, g: 0.5, b: 0.5, a: 0.25}
+  originalColor: {r: 0, g: 0, b: 0, a: 0}
+--- !u!65 &8006243533138526463
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -203,10 +249,9 @@ MeshCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 0}
+  serializedVersion: 3
+  m_Size: {x: 0.3443277, y: 0.30906677, z: 0.861448}
+  m_Center: {x: 0.020945696, y: 0.017150817, z: -0.02102279}
 --- !u!1 &6634197304454813030
 GameObject:
   m_ObjectHideFlags: 0

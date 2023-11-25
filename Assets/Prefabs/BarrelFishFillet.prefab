@@ -63,7 +63,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: FishFillet
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: -5355147837796896582, guid: d75503b2a1d3ffa4287582f8fdc1c1e6, type: 3}
+    - {fileID: -1734904859430351797, guid: d75503b2a1d3ffa4287582f8fdc1c1e6, type: 3}
+    - {fileID: 3346805883001469855, guid: d75503b2a1d3ffa4287582f8fdc1c1e6, type: 3}
+    - {fileID: 7419815642746256505, guid: d75503b2a1d3ffa4287582f8fdc1c1e6, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -84,7 +88,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 100000, guid: 06d9366f487453c4dae7c49cf614a85c, type: 3}
       propertyPath: m_Name
-      value: BarrelFish
+      value: BarrelFishFillet
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 06d9366f487453c4dae7c49cf614a85c, type: 3}
       propertyPath: m_Layer
