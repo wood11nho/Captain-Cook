@@ -1132,7 +1132,7 @@ GameObject:
   - component: {fileID: 5699167423197891940}
   m_Layer: 6
   m_Name: SausageSliceIngredient
-  m_TagString: Untagged
+  m_TagString: Ingredient
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1205,6 +1205,7 @@ MonoBehaviour:
   - {fileID: 963457343123430536}
   - {fileID: 1888396628430171486}
   highlightColor: {r: 1, g: 1, b: 1, a: 0.25}
+  originalColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!54 &7044261524329336660
 Rigidbody:
   m_ObjectHideFlags: 0

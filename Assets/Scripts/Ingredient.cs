@@ -119,4 +119,31 @@ public class Ingredient : MonoBehaviour
         return cutIngredient;
     }
 
+    public int GetNrOfIngredientChildren()
+    {
+        int count = 0;
+        for(int i = 0; i < transform.childCount; i++)
+        {
+            if(transform.GetChild(i).gameObject.CompareTag("Ingredient"))
+            {
+                count++;
+            }
+        }
+
+        return count;
+
+    }
+
+    public GameObject GetLastIngredientChild()
+    {
+        for(int i = transform.childCount - 1; i >= 0; i--)
+        {
+            if(transform.GetChild(i).gameObject.CompareTag("Ingredient"))
+            {
+                return transform.GetChild(i).gameObject;
+            }
+        }
+        return null;
+    }
+
 }

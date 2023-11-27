@@ -464,8 +464,8 @@ GameObject:
   - component: {fileID: 1176451381936656388}
   - component: {fileID: 1061722307859560064}
   m_Layer: 0
-  m_Name: BreadSlice
-  m_TagString: Untagged
+  m_Name: BreadSliceIngredient
+  m_TagString: Ingredient
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -529,7 +529,7 @@ MonoBehaviour:
   cuttable: 0
   cooked: 0
   burnt: 0
-  cut: 0
+  cut: 1
   burnTime: 0
   cookTime: 0
   cutTime: 0

@@ -13,6 +13,7 @@ public class CookingTable : MonoBehaviour, IUsable
 
     private GameObject lastObjectOnTable;
     private GameObject objectOnTable;
+    private GameObject firstObjectOnTable;
     private int ignoreRaycastLayerMaskInt;
 
     private float heightOffset = 0.0f;
@@ -32,12 +33,13 @@ public class CookingTable : MonoBehaviour, IUsable
         {
             if(pickedUpObject != null)
             {
-                if(objectOnTable == null)
+                var nrOfChildren = pickedUpObject.GetComponent<Ingredient>().GetNrOfIngredientChildren();
+                Debug.Log("Nr of children: " + nrOfChildren);
+                if (objectOnTable == null)
                 {
                     pickedUpObject.layer = LayerMask.NameToLayer("IgnoreRaycast");
                     pickedUpObject.transform.position = tableObjectPositionTransform.position;
                     pickedUpObject.transform.rotation = tableObjectPositionTransform.rotation;
-                    pickedUpObject.transform.SetParent(tableObjectPositionTransform);
                     Rigidbody rb = pickedUpObject.GetComponent<Rigidbody>();
                     /*
                     if(rb != null)
@@ -45,27 +47,49 @@ public class CookingTable : MonoBehaviour, IUsable
                         rb.isKinematic = false;
                     }
                     */
+                    pickedUpObject.transform.SetParent(firstObjectOnTable.transform);
                     playerItemPickupComponent.SetPickedUpObject(null);
-                    lastObjectOnTable = pickedUpObject;
-                    objectOnTable = pickedUpObject;
-                    heightOffset += tableObjectPositionTransform.localScale.y;
+
+                    if (nrOfChildren != 0)
+                    {
+                        firstObjectOnTable = pickedUpObject;
+                        lastObjectOnTable = pickedUpObject.GetComponent<Ingredient>().GetLastIngredientChild();
+                        objectOnTable = pickedUpObject;
+                    }
+                    else
+                    {
+                        lastObjectOnTable = pickedUpObject;
+                        firstObjectOnTable = pickedUpObject;
+                        objectOnTable = pickedUpObject;
+                        heightOffset += tableObjectPositionTransform.localScale.y;
+                    }
+
                 }
                 else
                 {
-                    pickedUpObject.layer = LayerMask.NameToLayer("IgnoreRaycast");
-                    pickedUpObject.transform.position = lastObjectOnTable.transform.position + new Vector3(0.0f, offset, 0.0f);
-                    pickedUpObject.transform.rotation = tableObjectPositionTransform.rotation;
-                    pickedUpObject.transform.SetParent(lastObjectOnTable.transform);
-                    Rigidbody rb = pickedUpObject.GetComponent<Rigidbody>();
-                    /*
-                    if (rb != null)
+
+                    if(nrOfChildren != 0)
                     {
-                        rb.isKinematic = false;
+                        Debug.Log("You can't put a dish on the table!");
+                        //return;
                     }
-                    */
-                    playerItemPickupComponent.SetPickedUpObject(null);
-                    lastObjectOnTable = pickedUpObject;
-                    heightOffset += lastObjectOnTable.transform.localScale.y;
+                    else
+                    {
+                        pickedUpObject.layer = LayerMask.NameToLayer("IgnoreRaycast");
+                        pickedUpObject.transform.position = lastObjectOnTable.transform.position + new Vector3(0.0f, offset, 0.0f);
+                        pickedUpObject.transform.rotation = tableObjectPositionTransform.rotation;
+                        pickedUpObject.transform.SetParent(firstObjectOnTable.transform);
+                        Rigidbody rb = pickedUpObject.GetComponent<Rigidbody>();
+                        /*
+                        if (rb != null)
+                        {
+                            rb.isKinematic = false;
+                        }
+                        */
+                        playerItemPickupComponent.SetPickedUpObject(null);
+                        lastObjectOnTable = pickedUpObject;
+                        heightOffset += lastObjectOnTable.transform.localScale.y;
+                    }
                 }
             }
             else
@@ -81,6 +105,8 @@ public class CookingTable : MonoBehaviour, IUsable
                 }
                 playerItemPickupComponent.SetPickedUpObject(objectOnTable);
                 objectOnTable = null;
+                firstObjectOnTable = transform.GetChild(0).gameObject;
+                lastObjectOnTable = null;
             }
         }
 
@@ -89,6 +115,8 @@ public class CookingTable : MonoBehaviour, IUsable
     // Start is called before the first frame update
     void Start()
     {
+        firstObjectOnTable = transform.GetChild(0).gameObject;
+        Debug.Log("First object on table: " + firstObjectOnTable);
         ignoreRaycastLayerMaskInt = LayerMask.NameToLayer("IgnoreRaycast");
     }
 
@@ -96,5 +124,6 @@ public class CookingTable : MonoBehaviour, IUsable
     void Update()
     {
         //Debug.Log(heightOffset);
+        Debug.Log("First object on table: " + firstObjectOnTable);
     }
 }
