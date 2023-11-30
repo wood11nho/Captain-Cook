@@ -133,6 +133,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b41606f75766874f9f93e15236b6563, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ingredientName: BreadLoafIngredient
   cookedIngredient: {fileID: 0}
   burntIngredient: {fileID: 0}
   cutIngredient: {fileID: 8705008012150750512, guid: fb6a049bc22594c0c9a7206681a88d3b,

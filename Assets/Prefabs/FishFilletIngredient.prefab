@@ -240,6 +240,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b41606f75766874f9f93e15236b6563, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ingredientName: FishFilletIngredient
   cookedIngredient: {fileID: 3366140265147980475, guid: cdc7577549a1be04bb974e29194378be,
     type: 3}
   burntIngredient: {fileID: 3366140265147980475, guid: 3fd672d8a6982c84e92706a56027a975,

@@ -116,7 +116,7 @@ public class CookingTable : MonoBehaviour, IUsable
     {
         firstObjectOnTable = transform.GetChild(0).gameObject;
         lastObjectOnTable = transform.GetChild(0).gameObject;
-        Debug.Log("First object on table: " + firstObjectOnTable);
+        //Debug.Log("First object on table: " + firstObjectOnTable);
         ignoreRaycastLayerMaskInt = LayerMask.NameToLayer("IgnoreRaycast");
     }
 
@@ -124,6 +124,6 @@ public class CookingTable : MonoBehaviour, IUsable
     void Update()
     {
         //Debug.Log(heightOffset);
-        Debug.Log("First object on table: " + lastObjectOnTable.transform.position.y);
+        //Debug.Log("First object on table: " + lastObjectOnTable.transform.position.y);
     }
 }

@@ -6,6 +6,9 @@ using UnityEngine;
 public class Ingredient : MonoBehaviour
 {
     [SerializeField]
+    private string ingredientName;
+    
+    [SerializeField]
     private GameObject cookedIngredient;
     
     [SerializeField]
@@ -144,6 +147,11 @@ public class Ingredient : MonoBehaviour
             }
         }
         return null;
+    }
+
+    public string GetIngredientName()
+    {
+        return ingredientName;
     }
 
 }

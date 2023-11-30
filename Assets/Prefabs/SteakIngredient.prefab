@@ -264,6 +264,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b41606f75766874f9f93e15236b6563, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ingredientName: SteakIngredient
   cookedIngredient: {fileID: 5448101533092959829, guid: 90191d876dfcf4f42af6613ee8182239,
     type: 3}
   burntIngredient: {fileID: 0}
