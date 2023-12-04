@@ -1132,7 +1132,7 @@ GameObject:
   - component: {fileID: 5699167423197891940}
   m_Layer: 6
   m_Name: OnionSliceIngredient
-  m_TagString: Untagged
+  m_TagString: Ingredient
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1166,6 +1166,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b41606f75766874f9f93e15236b6563, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ingredientName: OnionSliceIngredient
   cookedIngredient: {fileID: 0}
   burntIngredient: {fileID: 0}
   cutIngredient: {fileID: 0}

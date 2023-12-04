@@ -99,7 +99,7 @@ GameObject:
   - component: {fileID: 8236538077043870561}
   m_Layer: 0
   m_Name: FishFilletCooked 1
-  m_TagString: Untagged
+  m_TagString: Ingredient
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -240,6 +240,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b41606f75766874f9f93e15236b6563, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ingredientName: FishFilletCooked
   cookedIngredient: {fileID: 0}
   burntIngredient: {fileID: 3366140265147980475, guid: 3fd672d8a6982c84e92706a56027a975,
     type: 3}

@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 1238914851414072310}
   m_Layer: 6
   m_Name: SausageIngredient
-  m_TagString: Untagged
+  m_TagString: Ingredient
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -91,6 +91,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b41606f75766874f9f93e15236b6563, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ingredientName: SausageIngredient
   cookedIngredient: {fileID: 0}
   burntIngredient: {fileID: 0}
   cutIngredient: {fileID: 8204877945777266922, guid: f785468070e7a064b90eec5cf3e01b91,
