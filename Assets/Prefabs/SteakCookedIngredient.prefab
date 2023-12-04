@@ -98,7 +98,7 @@ GameObject:
   - component: {fileID: 7303317028892109724}
   m_Layer: 0
   m_Name: SteakCookedIngredient
-  m_TagString: Untagged
+  m_TagString: Ingredient
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -181,14 +181,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b41606f75766874f9f93e15236b6563, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ingredientName: SteakCookedIngredient
   cookedIngredient: {fileID: 0}
   burntIngredient: {fileID: 5448101533092959829, guid: f2f1f0db1a9d32d4a8bdb4b7402737ad,
     type: 3}
+  cutIngredient: {fileID: 0}
   cookable: 0
+  cuttable: 0
   cooked: 1
   burnt: 0
+  cut: 0
   burnTime: 5
   cookTime: 0
+  cutTime: 0
 --- !u!114 &7303317028892109724
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -206,6 +211,7 @@ MonoBehaviour:
   - {fileID: 2700754509847299006}
   - {fileID: 3125480020524251135}
   highlightColor: {r: 1, g: 1, b: 1, a: 0.25}
+  originalColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &7337507793579936786
 GameObject:
   m_ObjectHideFlags: 0

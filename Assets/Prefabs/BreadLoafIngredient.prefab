@@ -99,7 +99,7 @@ GameObject:
   - component: {fileID: 8006243533138526463}
   m_Layer: 6
   m_Name: BreadLoafIngredient
-  m_TagString: Untagged
+  m_TagString: Ingredient
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -133,6 +133,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b41606f75766874f9f93e15236b6563, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ingredientName: BreadLoafIngredient
   cookedIngredient: {fileID: 0}
   burntIngredient: {fileID: 0}
   cutIngredient: {fileID: 8705008012150750512, guid: fb6a049bc22594c0c9a7206681a88d3b,
