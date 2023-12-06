@@ -28,7 +28,7 @@ public class ItemPickup : MonoBehaviour
     [SerializeField]
     private GameObject pickedUpObject;
 
-    private RaycastHit hit;
+    private RaycastHit hit; 
 
     private void Start()
     {
