@@ -70,6 +70,12 @@ public class Stove : MonoBehaviour, IUsable
                 }
                 else
                 {
+                    if (pickedUpObject.GetComponent<Ingredient>().GetNrOfIngredientChildren() > 0)
+                    {
+                        Debug.Log("You can't cook a dish!");
+                        return;
+                    }
+
                     pickedUpObject.layer = ignoreRaycastLayerMaskInt;
                     pickedUpObject.transform.SetParent(null);
                     pickedUpObject.transform.position = stoveObjectPositionTransform.position;

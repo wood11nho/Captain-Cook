@@ -34,7 +34,6 @@ public class CookingTable : MonoBehaviour, IUsable
             if(pickedUpObject != null)
             {
                 var nrOfChildren = pickedUpObject.GetComponent<Ingredient>().GetNrOfIngredientChildren();
-                Debug.Log("Nr of children: " + nrOfChildren);
                 if (objectOnTable == null)
                 {
                     pickedUpObject.layer = LayerMask.NameToLayer("IgnoreRaycast");
@@ -66,7 +65,6 @@ public class CookingTable : MonoBehaviour, IUsable
                 }
                 else
                 {
-
                     if(nrOfChildren != 0)
                     {
                         Debug.Log("You can't put a dish on the table!");

@@ -112,7 +112,7 @@ Transform:
   m_GameObject: {fileID: 1500203809658142}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -14.312, y: 2.3393, z: -96.97}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.05871605, y: 0.05871605, z: 0.05871605}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -178,6 +178,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b41606f75766874f9f93e15236b6563, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ingredientName: 
   cookedIngredient: {fileID: 0}
   burntIngredient: {fileID: 0}
   cutIngredient: {fileID: 8204877945777266922, guid: d80a3798f1f3ae946b9a4401e60be6c9,
