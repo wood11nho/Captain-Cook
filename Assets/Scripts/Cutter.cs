@@ -40,7 +40,11 @@ public class Cutter : MonoBehaviour, IUsable
                     }
                     else
                     {
-
+                        if (pickedUpObject.GetComponent<Ingredient>().GetNrOfIngredientChildren() > 0)
+                        {
+                            Debug.Log("You can't cut a dish!");
+                            return;
+                        }
                         StartCoroutine(StopPlayerAndCut(player));
                     }
                 }
