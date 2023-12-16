@@ -7,7 +7,7 @@ public class ServingTable : MonoBehaviour, IUsable
 {
     public UnityEvent OnUse => throw new System.NotImplementedException();
 
-    private List<string[]> OpenedRecipes = new List<string[]>();
+    private List<Recipe> OpenedRecipes = new List<Recipe>();
 
     public void Use(GameObject player)
     {
@@ -24,7 +24,7 @@ public class ServingTable : MonoBehaviour, IUsable
         {
             bool recipeMatches = true;
 
-            int nrOfRecipesInHand = 1 + pickedUpObject.GetComponent<Ingredient>().GetNrOfIngredientChildren();
+            int nrOfIngredientsInHand = 1 + pickedUpObject.GetComponent<Ingredient>().GetNrOfIngredientChildren();
 
             string firstIngredientName = pickedUpObject.GetComponent<Ingredient>().GetIngredientName();
             inHandRecipe.Add(firstIngredientName);
@@ -43,11 +43,11 @@ public class ServingTable : MonoBehaviour, IUsable
 
             for (int i = 0; i < OpenedRecipes.Count; i++)
             {
-                if (OpenedRecipes[i].Length == nrOfRecipesInHand)
+                if (OpenedRecipes[i].GetIngredientNames().Count == nrOfIngredientsInHand)
                 {
-                    for (int j = 0; j < OpenedRecipes[i].Length; j++)
+                    for (int j = 0; j < OpenedRecipes[i].GetIngredientNames().Count; j++)
                     {
-                        if (OpenedRecipes[i][j] != inHandRecipe[j])
+                        if (OpenedRecipes[i].GetIngredientNames()[j] != inHandRecipe[j])
                         {
                             recipeMatches = false;
                             break;
@@ -75,13 +75,18 @@ public class ServingTable : MonoBehaviour, IUsable
 
     }
 
+    public void AddRecipeToOpened(Recipe recipe)
+    {
+        OpenedRecipes.Add(recipe);
+    }
+
     void Awake()
     {
-        OpenedRecipes.Add(new string[] { "BreadSliceIngredient", "SausageSliceIngredient", "BreadSliceIngredient" });
+        OpenedRecipes.Add(new Recipe("Sausage Sandwich", new List<string>{ "BreadSliceIngredient", "SausageSliceIngredient", "BreadSliceIngredient" }, 30f));
     }
 
     void Update()
     {
-        
+        //Debug.Log(OpenedRecipes[0].GetRecipeName());
     }
 }
