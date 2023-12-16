@@ -603,6 +603,7 @@ MonoBehaviour:
   anchorCamera: {fileID: 1987543075}
   anchor: {fileID: 1053197569}
   newTrack: {fileID: 8300000, guid: ba947731bb3309245b8b0ba023189eba, type: 3}
+  gameManager: {fileID: 1594471427}
 --- !u!95 &258617940
 Animator:
   serializedVersion: 5
@@ -1256,6 +1257,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 561541715}
+  - component: {fileID: 561541716}
   m_Layer: 0
   m_Name: RecipeGenerator
   m_TagString: Untagged
@@ -1272,12 +1274,32 @@ Transform:
   m_GameObject: {fileID: 561541714}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.6758448, y: 9.149159, z: 7.4101152}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &561541716
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 561541714}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 564c58a690e3d374a96f7ac92eac8942, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameManager: {fileID: 1594471427}
+  servingTable: {fileID: 1791959182051135673}
+  maxNrOfRecipes: 5
+  easyRecipeProbability: 0.5
+  mediumRecipeProbability: 0.3
+  hardRecipeProbability: 0.2
+  minTimeBetweenRecipes: 15
+  maxTimeBetweenRecipes: 30
 --- !u!1 &617129337
 GameObject:
   m_ObjectHideFlags: 0
@@ -3581,6 +3603,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1594471428}
+  - component: {fileID: 1594471429}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -3597,12 +3620,26 @@ Transform:
   m_GameObject: {fileID: 1594471427}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.6758448, y: 9.149159, z: 7.4101152}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1594471429
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1594471427}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f875d13d5d96d747af930b1b7a417c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  recipeGenerator: {fileID: 561541714}
+  gameDuration: 300
 --- !u!1 &1629041986 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4211867967445260440, guid: 4fe7ec1d555ab494d836addf3c4b2c0f,
@@ -5637,6 +5674,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: db32685eece67ab448bf89808d9766d1, type: 3}
+--- !u!1 &1791959182051135673 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8367040250439077919, guid: db32685eece67ab448bf89808d9766d1,
+    type: 3}
+  m_PrefabInstance: {fileID: 1791959182051135672}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4274583539079490579
 PrefabInstance:
   m_ObjectHideFlags: 0

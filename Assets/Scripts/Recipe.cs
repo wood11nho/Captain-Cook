@@ -7,12 +7,14 @@ public class Recipe : MonoBehaviour
     private string recipeName;
     private List<string> ingredientNames = new List<string>();
     private float expirationTime;
+    private float probability;
 
-    public Recipe(string recipeName, List<string> ingredientNames, float expirationTime)
+    public Recipe(string recipeName, List<string> ingredientNames, float expirationTime, float probability)
     {
         this.recipeName = recipeName;
         this.ingredientNames = ingredientNames;
         this.expirationTime = expirationTime;
+        this.probability = probability;
     }
 
     // Start is called before the first frame update

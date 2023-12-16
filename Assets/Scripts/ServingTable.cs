@@ -5,6 +5,8 @@ using UnityEngine.Events;
 
 public class ServingTable : MonoBehaviour, IUsable
 {
+    [SerializeField]
+    private GameObject gameManager;
     public UnityEvent OnUse => throw new System.NotImplementedException();
 
     private List<Recipe> OpenedRecipes = new List<Recipe>();
@@ -22,7 +24,8 @@ public class ServingTable : MonoBehaviour, IUsable
         }
         else
         {
-            bool recipeMatches = true;
+            bool recipeMatches = false;
+            Recipe matchingRecipe = null;
 
             int nrOfIngredientsInHand = 1 + pickedUpObject.GetComponent<Ingredient>().GetNrOfIngredientChildren();
 
@@ -45,24 +48,28 @@ public class ServingTable : MonoBehaviour, IUsable
             {
                 if (OpenedRecipes[i].GetIngredientNames().Count == nrOfIngredientsInHand)
                 {
+                    bool ingredientNamesMatch = true;
                     for (int j = 0; j < OpenedRecipes[i].GetIngredientNames().Count; j++)
                     {
                         if (OpenedRecipes[i].GetIngredientNames()[j] != inHandRecipe[j])
                         {
-                            recipeMatches = false;
-                            break;
+                            ingredientNamesMatch = false;
                         }
                     }
-                }
-                else
-                {
-                    recipeMatches = false;
+                    if (ingredientNamesMatch)
+                    {
+                        recipeMatches = true;
+                        matchingRecipe = OpenedRecipes[i];
+                        break;
+                    }
                 }
             }
 
             if(recipeMatches)
             {
                 Debug.Log("Recipe matches!");
+                RemoveRecipeFromOpened(matchingRecipe);
+                gameManager.GetComponent<GameManager>().AddScore(gameManager.GetComponent<GameManager>().CalculateRecipeScore(matchingRecipe));
             }
             else
             {
@@ -80,13 +87,19 @@ public class ServingTable : MonoBehaviour, IUsable
         OpenedRecipes.Add(recipe);
     }
 
+    public void RemoveRecipeFromOpened(Recipe recipe)
+    {
+        OpenedRecipes.Remove(recipe);
+    }
+
     void Awake()
     {
-        OpenedRecipes.Add(new Recipe("Sausage Sandwich", new List<string>{ "BreadSliceIngredient", "SausageSliceIngredient", "BreadSliceIngredient" }, 30f));
+        //OpenedRecipes.Add(new Recipe("Sausage Sandwich", new List<string>{ "BreadSliceIngredient", "SausageSliceIngredient", "BreadSliceIngredient" }, 30f));
     }
 
     void Update()
     {
         //Debug.Log(OpenedRecipes[0].GetRecipeName());
+        //Debug.Log(OpenedRecipes);
     }
 }
