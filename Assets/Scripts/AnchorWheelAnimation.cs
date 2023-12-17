@@ -14,6 +14,9 @@ public class AnchorWheelAnimation : MonoBehaviour, IUsable
     private AudioManager audioManager;
     private int ignoreRaycastLayerMaskInt;
 
+    [SerializeField]
+    private GameObject gameManager;
+
     void Start()
     {
         audioManager = FindObjectOfType<AudioManager>();
@@ -64,7 +67,8 @@ public class AnchorWheelAnimation : MonoBehaviour, IUsable
 
         // Anchor animation
         anchor.GetComponent<Animator>().SetBool("anchorMoving", false);
-
+        yield return new WaitForSeconds(1f);
+        gameManager.GetComponent<GameManager>().StartGame();
 
 
     }

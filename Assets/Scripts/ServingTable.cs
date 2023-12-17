@@ -5,9 +5,17 @@ using UnityEngine.Events;
 
 public class ServingTable : MonoBehaviour, IUsable
 {
+    [SerializeField]
+    private GameObject activeRecipesUI;
+
+    [SerializeField]
+    private GameObject recipeGenerator;
+
+    [SerializeField]
+    private GameObject gameManager;
     public UnityEvent OnUse => throw new System.NotImplementedException();
 
-    private List<string[]> OpenedRecipes = new List<string[]>();
+    private List<Recipe> OpenedRecipes = new List<Recipe>();
 
     public void Use(GameObject player)
     {
@@ -22,12 +30,16 @@ public class ServingTable : MonoBehaviour, IUsable
         }
         else
         {
-            bool recipeMatches = true;
+            int indexOfDoneRecipe = -1;
+            bool recipeMatches = false;
+            Recipe matchingRecipe = null;
 
-            int nrOfRecipesInHand = 1 + pickedUpObject.GetComponent<Ingredient>().GetNrOfIngredientChildren();
+            int nrOfIngredientsInHand = 1 + pickedUpObject.GetComponent<Ingredient>().GetNrOfIngredientChildren();
 
             string firstIngredientName = pickedUpObject.GetComponent<Ingredient>().GetIngredientName();
             inHandRecipe.Add(firstIngredientName);
+
+            Debug.Log(firstIngredientName);
 
             for (int i = 0; i < pickedUpObject.transform.childCount; i++)
             {
@@ -37,51 +49,134 @@ public class ServingTable : MonoBehaviour, IUsable
                 {
                     string childIngredientName = childIngredient.GetIngredientName();
                     inHandRecipe.Add(childIngredientName);
+                    Debug.Log(childIngredientName);
                 }
 
             }
 
             for (int i = 0; i < OpenedRecipes.Count; i++)
             {
-                if (OpenedRecipes[i].Length == nrOfRecipesInHand)
+                if (OpenedRecipes[i].GetIngredientNames().Count == nrOfIngredientsInHand)
                 {
-                    for (int j = 0; j < OpenedRecipes[i].Length; j++)
+                    bool ingredientNamesMatch = true;
+                    for (int j = 0; j < OpenedRecipes[i].GetIngredientNames().Count; j++)
                     {
-                        if (OpenedRecipes[i][j] != inHandRecipe[j])
+                        if (OpenedRecipes[i].GetIngredientNames()[j] != inHandRecipe[j])
                         {
-                            recipeMatches = false;
-                            break;
+                            Debug.Log("Ingredient Reteta: " + OpenedRecipes[i].GetIngredientNames()[j] + " Ingredient in mana: " + inHandRecipe[j]);
+                            ingredientNamesMatch = false;
                         }
                     }
-                }
-                else
-                {
-                    recipeMatches = false;
+                    if (ingredientNamesMatch)
+                    {
+                        recipeMatches = true;
+                        matchingRecipe = OpenedRecipes[i];
+                        indexOfDoneRecipe = i;
+                        break;
+                    }
                 }
             }
 
             if(recipeMatches)
             {
                 Debug.Log("Recipe matches!");
+                RemoveRecipeFromOpened(matchingRecipe);
+                gameManager.GetComponent<GameManager>().AddScore(gameManager.GetComponent<GameManager>().CalculateRecipeScore(matchingRecipe));
             }
             else
             {
                 Debug.Log("Recipe does not match!");
+                gameManager.GetComponent<GameManager>().AddStrike();
             }
+
             Destroy(pickedUpObject);
             playerItemPickupComponent.SetPickedUpObject(null);
 
+            if (indexOfDoneRecipe != -1)
+            {
+                recipeGenerator.GetComponent<RecipeGenerator>().DecrementIndexLastRecipe();
+
+                for (int nextRecipeInLineIndex = indexOfDoneRecipe + 1; nextRecipeInLineIndex <= OpenedRecipes.Count; nextRecipeInLineIndex++)
+                {
+                    RectTransform rectTransform = activeRecipesUI.transform.GetChild(nextRecipeInLineIndex).GetComponent<RectTransform>();
+                    rectTransform.localPosition = new Vector3(rectTransform.localPosition.x - 200, rectTransform.localPosition.y, rectTransform.localPosition.z);
+                }
+
+                // Get the recipe text box and destroy it
+                GameObject textBox = activeRecipesUI.transform.GetChild(indexOfDoneRecipe).gameObject;
+                Destroy(textBox);
+            }
         }
 
     }
 
+    public void AddRecipeToOpened(Recipe recipe)
+    {
+        OpenedRecipes.Add(recipe);
+        Debug.Log(OpenedRecipes.Count);
+    }
+
+    public void RemoveRecipeFromOpened(Recipe recipe)
+    {
+        OpenedRecipes.Remove(recipe);
+    }
+
     void Awake()
     {
-        OpenedRecipes.Add(new string[] { "BreadSliceIngredient", "SausageSliceIngredient", "BreadSliceIngredient" });
+        //OpenedRecipes.Add(new Recipe("Sausage Sandwich", new List<string>{ "BreadSliceIngredient", "SausageSliceIngredient", "BreadSliceIngredient" }, 30f));
     }
 
     void Update()
     {
-        
+        List<int> indexesToRemove = new List<int>();
+        for (int i = OpenedRecipes.Count - 1; i >= 0; i--)
+        {
+            OpenedRecipes[i].SetExpirationTime(OpenedRecipes[i].GetExpirationTime() - Time.deltaTime);
+
+            if (OpenedRecipes[i].GetExpirationTime() <= 0.0f)
+            {
+                gameManager.GetComponent<GameManager>().AddStrike();
+                indexesToRemove.Add(i);
+            }
+
+        }
+
+        for(int i = 0; i < indexesToRemove.Count; i++)
+        {
+            RemoveRecipeFromOpened(OpenedRecipes[indexesToRemove[i]]);
+            recipeGenerator.GetComponent<RecipeGenerator>().DecrementIndexLastRecipe();
+            Destroy(activeRecipesUI.transform.GetChild(indexesToRemove[i]).gameObject);
+
+            for (int nextRecipeInLineIndex = indexesToRemove[i] + 1; nextRecipeInLineIndex <= OpenedRecipes.Count; nextRecipeInLineIndex++)
+            {
+                RectTransform rectTransform = activeRecipesUI.transform.GetChild(nextRecipeInLineIndex).GetComponent<RectTransform>();
+                rectTransform.localPosition = new Vector3(rectTransform.localPosition.x - 200, rectTransform.localPosition.y, rectTransform.localPosition.z);
+            }
+        }
+
     }
+    void LateUpdate()
+    {
+        /*
+        for (int i = OpenedRecipes.Count - 1; i >= 0; i--)
+        {
+
+            if (OpenedRecipes[i].GetExpirationTime() <= 0.0f)
+            {
+                gameManager.GetComponent<GameManager>().AddStrike();
+                Debug.Log("Recipe expired index: " + i);
+                RemoveRecipeFromOpened(OpenedRecipes[i]);
+                recipeGenerator.GetComponent<RecipeGenerator>().DecrementIndexLastRecipe();
+                Destroy(activeRecipesUI.transform.GetChild(i).gameObject);
+
+                for (int nextRecipeInLineIndex = i + 1; nextRecipeInLineIndex <= OpenedRecipes.Count; nextRecipeInLineIndex++)
+                {
+                    RectTransform rectTransform = activeRecipesUI.transform.GetChild(nextRecipeInLineIndex).GetComponent<RectTransform>();
+                    rectTransform.localPosition = new Vector3(rectTransform.localPosition.x - 200, rectTransform.localPosition.y, rectTransform.localPosition.z);
+                }
+            }
+        }
+        */
+    }
+
 }
