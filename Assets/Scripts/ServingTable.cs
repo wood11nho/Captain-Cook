@@ -6,6 +6,12 @@ using UnityEngine.Events;
 public class ServingTable : MonoBehaviour, IUsable
 {
     [SerializeField]
+    private GameObject activeRecipesUI;
+
+    [SerializeField]
+    private GameObject recipeGenerator;
+
+    [SerializeField]
     private GameObject gameManager;
     public UnityEvent OnUse => throw new System.NotImplementedException();
 
@@ -24,6 +30,7 @@ public class ServingTable : MonoBehaviour, IUsable
         }
         else
         {
+            int indexOfDoneRecipe = -1;
             bool recipeMatches = false;
             Recipe matchingRecipe = null;
 
@@ -31,6 +38,8 @@ public class ServingTable : MonoBehaviour, IUsable
 
             string firstIngredientName = pickedUpObject.GetComponent<Ingredient>().GetIngredientName();
             inHandRecipe.Add(firstIngredientName);
+
+            Debug.Log(firstIngredientName);
 
             for (int i = 0; i < pickedUpObject.transform.childCount; i++)
             {
@@ -40,6 +49,7 @@ public class ServingTable : MonoBehaviour, IUsable
                 {
                     string childIngredientName = childIngredient.GetIngredientName();
                     inHandRecipe.Add(childIngredientName);
+                    Debug.Log(childIngredientName);
                 }
 
             }
@@ -53,6 +63,7 @@ public class ServingTable : MonoBehaviour, IUsable
                     {
                         if (OpenedRecipes[i].GetIngredientNames()[j] != inHandRecipe[j])
                         {
+                            Debug.Log("Ingredient Reteta: " + OpenedRecipes[i].GetIngredientNames()[j] + " Ingredient in mana: " + inHandRecipe[j]);
                             ingredientNamesMatch = false;
                         }
                     }
@@ -60,6 +71,7 @@ public class ServingTable : MonoBehaviour, IUsable
                     {
                         recipeMatches = true;
                         matchingRecipe = OpenedRecipes[i];
+                        indexOfDoneRecipe = i;
                         break;
                     }
                 }
@@ -75,9 +87,24 @@ public class ServingTable : MonoBehaviour, IUsable
             {
                 Debug.Log("Recipe does not match!");
             }
+
             Destroy(pickedUpObject);
             playerItemPickupComponent.SetPickedUpObject(null);
 
+            if (indexOfDoneRecipe != -1)
+            {
+                recipeGenerator.GetComponent<RecipeGenerator>().DecrementIndexLastRecipe();
+
+                for (int nextRecipeInLineIndex = indexOfDoneRecipe + 1; nextRecipeInLineIndex <= OpenedRecipes.Count; nextRecipeInLineIndex++)
+                {
+                    RectTransform rectTransform = activeRecipesUI.transform.GetChild(nextRecipeInLineIndex).GetComponent<RectTransform>();
+                    rectTransform.localPosition = new Vector3(rectTransform.localPosition.x - 200, rectTransform.localPosition.y, rectTransform.localPosition.z);
+                }
+
+                // Get the recipe text box and destroy it
+                GameObject textBox = activeRecipesUI.transform.GetChild(indexOfDoneRecipe).gameObject;
+                Destroy(textBox);
+            }
         }
 
     }
@@ -85,6 +112,7 @@ public class ServingTable : MonoBehaviour, IUsable
     public void AddRecipeToOpened(Recipe recipe)
     {
         OpenedRecipes.Add(recipe);
+        Debug.Log(OpenedRecipes.Count);
     }
 
     public void RemoveRecipeFromOpened(Recipe recipe)

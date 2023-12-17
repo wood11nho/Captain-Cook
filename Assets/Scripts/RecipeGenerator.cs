@@ -1,6 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 public class RecipeGenerator : MonoBehaviour
 {
@@ -28,6 +31,12 @@ public class RecipeGenerator : MonoBehaviour
     [SerializeField]
     private float maxTimeBetweenRecipes = 30.0f;
 
+    [SerializeField]
+    private GameObject activeRecipesUI;
+
+    [SerializeField]
+    private GameObject textBoxPrefab;
+
     private float timeModifier; 
 
     private List<Recipe> recipes = new List<Recipe>();
@@ -36,20 +45,22 @@ public class RecipeGenerator : MonoBehaviour
 
     private bool gameStarted = false;
 
+    private int indexLastRecipe = 0;
+
     // Start is called before the first frame update
     void Awake()
     {
         timeModifier = easyRecipeProbability / (gameManager.GetComponent<GameManager>().GetGameDuration() - maxTimeBetweenRecipes);
 
-        Recipe sausageSandwich = new Recipe("Sausage Sandwich", new List<string> { "BreadSliceIngredient", "SausageSliceIngredient", "BreadSliceIngredient" }, 30.0f, easyRecipeProbability);
-        Recipe steakSandwich = new Recipe("Steak Sandwich", new List<string> { "BreadSliceIngredient", "SteakCookedIngredient", "BreadSliceIngredient" }, 30.0f, easyRecipeProbability);
-        Recipe fishFilletSandwich = new Recipe("Salmon Sandwich", new List<string> { "BreadSliceIngredient", "FishFilletCookedIngredient", "BreadSliceIngredient" }, 30.0f, easyRecipeProbability);
-        Recipe mediumSteakSandwich = new Recipe("Medium Steak Sandwich", new List<string> { "BreadSliceIngredient", "SteakCookedIngredient", "PotatoCutCookedIngredient", "OnionSliceIngredient", "BreadSliceIngredient" }, 45.0f, mediumRecipeProbability);
-        Recipe mediumSausageSandwich = new Recipe("Medium Sausage Sandwich", new List<string> { "BreadSliceIngredient", "SausageSliceIngredient", "PotatoCutCookedIngredient", "OnionSliceIngredient", "BreadSliceIngredient" }, 45.0f, mediumRecipeProbability); 
-        Recipe mediumFishFilletSandwich = new Recipe("Medium Salmon Sandwich", new List<string> { "BreadSliceIngredient", "FishFilletCookedIngredient", "PotatoCutCookedIngredient", "OnionSliceIngredient", "BreadSliceIngredient" }, 45.0f, mediumRecipeProbability);
-        Recipe hardSteakSausageSandwich = new Recipe("Hard Steak Sausage Sandwich", new List<string> { "BreadSliceIngredient", "SteakCookedIngredient", "SausageSliceIngredient", "PotatoCutCookedIngredient", "OnionSliceIngredient", "BreadSliceIngredient" }, 60.0f, hardRecipeProbability);
-        Recipe hardFishFilletSausageSandwich = new Recipe("Hard Salmon Sausage Sandwich", new List<string> { "BreadSliceIngredient", "FishFilletCookedIngredient", "SausageSliceIngredient", "PotatoCutCookedIngredient", "OnionSliceIngredient", "BreadSliceIngredient" }, 60.0f, hardRecipeProbability);
-        Recipe meatLoverSandwich = new Recipe("Meat Lover Sandwich", new List<string> { "BreadSliceIngredient", "SteakCookedIngredient", "FishFilletCookedIngredient","SausageSliceIngredient", "BreadSliceIngredient" }, 60.0f, hardRecipeProbability);
+        Recipe sausageSandwich = new("Sausage Sandwich", new List<string> { "BreadSliceIngredient", "SausageSliceIngredient", "BreadSliceIngredient" }, 30.0f, easyRecipeProbability);
+        Recipe steakSandwich = new("Steak Sandwich", new List<string> { "BreadSliceIngredient", "SteakCookedIngredient", "BreadSliceIngredient" }, 30.0f, easyRecipeProbability);
+        Recipe fishFilletSandwich = new("Salmon Sandwich", new List<string> { "BreadSliceIngredient", "FishFilletCookedIngredient", "BreadSliceIngredient" }, 30.0f, easyRecipeProbability);
+        Recipe mediumSteakSandwich = new("Medium Steak Sandwich", new List<string> { "BreadSliceIngredient", "SteakCookedIngredient", "PotatoCutCookedIngredient", "OnionSliceIngredient", "BreadSliceIngredient" }, 45.0f, mediumRecipeProbability);
+        Recipe mediumSausageSandwich = new("Medium Sausage Sandwich", new List<string> { "BreadSliceIngredient", "SausageSliceIngredient", "PotatoCutCookedIngredient", "OnionSliceIngredient", "BreadSliceIngredient" }, 45.0f, mediumRecipeProbability); 
+        Recipe mediumFishFilletSandwich = new("Medium Salmon Sandwich", new List<string> { "BreadSliceIngredient", "FishFilletCookedIngredient", "PotatoCutCookedIngredient", "OnionSliceIngredient", "BreadSliceIngredient" }, 45.0f, mediumRecipeProbability);
+        Recipe hardSteakSausageSandwich = new("Hard Steak Sausage Sandwich", new List<string> { "BreadSliceIngredient", "SteakCookedIngredient", "SausageSliceIngredient", "PotatoCutCookedIngredient", "OnionSliceIngredient", "BreadSliceIngredient" }, 60.0f, hardRecipeProbability);
+        Recipe hardFishFilletSausageSandwich = new("Hard Salmon Sausage Sandwich", new List<string> { "BreadSliceIngredient", "FishFilletCookedIngredient", "SausageSliceIngredient", "PotatoCutCookedIngredient", "OnionSliceIngredient", "BreadSliceIngredient" }, 60.0f, hardRecipeProbability);
+        Recipe meatLoverSandwich = new("Meat Lover Sandwich", new List<string> { "BreadSliceIngredient", "SteakCookedIngredient", "FishFilletCookedIngredient","SausageSliceIngredient", "BreadSliceIngredient" }, 60.0f, hardRecipeProbability);
 
         recipes.Add(sausageSandwich);
         recipes.Add(steakSandwich);
@@ -62,7 +73,10 @@ public class RecipeGenerator : MonoBehaviour
         recipes.Add(meatLoverSandwich);
 
     }
-
+    public void DecrementIndexLastRecipe()
+    {
+        indexLastRecipe--;
+    }
     // Update is called once per frame
     void Update()
     {
@@ -89,24 +103,40 @@ public class RecipeGenerator : MonoBehaviour
         StartCoroutine(GenerateRecipesCoroutine(minTimeBetweenRecipes, maxTimeBetweenRecipes));
     }
 
+    public void AddTextBoxToPanel(int indexLastRecipe, string recipeName)
+    {
+        GameObject textBox = Instantiate(textBoxPrefab, activeRecipesUI.transform);
+
+        RectTransform rectTransform = textBox.GetComponent<RectTransform>();
+        rectTransform.localPosition = new Vector3(200 * indexLastRecipe - 800, 0, 0);
+
+        textBox.GetComponent<TextMeshProUGUI>().text = recipeName;
+        textBox.SetActive(true);
+    }
+
     Recipe GenerateRecipe()
     {
         Recipe generatedRecipe = null;
         float randomNr = Random.Range(0.0f, 1.0f);
+        if (indexLastRecipe >= maxNrOfRecipes)
+        {
+            return null;
+        }
         if(randomNr <= easyRecipeProbability)
         {
-            generatedRecipe = GenerateEasyRecipe(0, 2);
+            generatedRecipe = GenerateEasyRecipe(0, 3);
         }
         else if(randomNr <= easyRecipeProbability + mediumRecipeProbability)
         {
-            generatedRecipe = GenerateMediumRecipe(3, 5);
+            generatedRecipe = GenerateMediumRecipe(3, 6);
         }
         else
         {
-            generatedRecipe = GenerateHardRecipe(6, 8);
+            generatedRecipe = GenerateHardRecipe(6, 9);
         }
-
         Debug.Log("Generated recipe: " + generatedRecipe.GetRecipeName());
+        AddTextBoxToPanel(indexLastRecipe, generatedRecipe.GetRecipeName());
+        indexLastRecipe++;
         return generatedRecipe;
     }
 
@@ -130,10 +160,16 @@ public class RecipeGenerator : MonoBehaviour
 
     IEnumerator GenerateRecipesCoroutine(float minTimeBetween, float maxTimeBetween)
     {
-        servingTable.GetComponent<ServingTable>().AddRecipeToOpened(GenerateRecipe());
+        Recipe generatedRecipe = GenerateRecipe();
+
+        if (generatedRecipe.GetRecipeName() != null)
+        {
+            servingTable.GetComponent<ServingTable>().AddRecipeToOpened(generatedRecipe);
+        }
+
         yield return new WaitForSeconds(Random.Range(minTimeBetween, maxTimeBetween));
+
         StartCoroutine(GenerateRecipesCoroutine(minTimeBetween, maxTimeBetween));
     }
-    
 
 }
