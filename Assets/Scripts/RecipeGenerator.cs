@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UnityEditor.Animations;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
@@ -46,6 +47,8 @@ public class RecipeGenerator : MonoBehaviour
     private bool gameStarted = false;
 
     private int indexLastRecipe = 0;
+
+    private RawImage failImage;
 
     // Start is called before the first frame update
     void Awake()
@@ -103,15 +106,50 @@ public class RecipeGenerator : MonoBehaviour
         StartCoroutine(GenerateRecipesCoroutine(minTimeBetweenRecipes, maxTimeBetweenRecipes));
     }
 
-    public void AddTextBoxToPanel(int indexLastRecipe, string recipeName)
+    public void AddTextBoxToPanel(int indexLastRecipe, string recipeName, float expirationTime)
     {
         GameObject textBox = Instantiate(textBoxPrefab, activeRecipesUI.transform);
 
         RectTransform rectTransform = textBox.GetComponent<RectTransform>();
         rectTransform.localPosition = new Vector3(200 * indexLastRecipe - 800, 0, 0);
 
+        // Get first child of textBox, which is the slider
+        UnityEngine.UI.Slider sliderTextBox = textBox.transform.GetChild(0).GetComponent<UnityEngine.UI.Slider>();
+        sliderTextBox.maxValue = expirationTime;
+        sliderTextBox.value = 0;
+        GameObject fill = sliderTextBox.transform.GetChild(1).GetChild(0).gameObject;
+        fill.GetComponent<UnityEngine.UI.Image>().color = Color.green;
+
+        failImage = textBox.transform.GetChild(1).GetComponent<RawImage>();
+
+        StartCoroutine(UpdateSlider(sliderTextBox, expirationTime));
+
         textBox.GetComponent<TextMeshProUGUI>().text = recipeName;
         textBox.SetActive(true);
+    }
+
+    IEnumerator UpdateSlider(UnityEngine.UI.Slider slider, float expirationTime)
+    {
+        while(slider.value < expirationTime)
+        {
+            slider.value += Time.deltaTime;
+            // Get Slider/Fill Area/Fill child of slider
+            GameObject fill = slider.transform.GetChild(1).GetChild(0).gameObject;
+            
+            if (slider.value >= expirationTime / 2.0f)
+            {
+                fill.GetComponent<UnityEngine.UI.Image>().color = Color.yellow;
+            }
+            if (slider.value >= expirationTime / 4.0f * 3.0f)
+            {
+                fill.GetComponent<UnityEngine.UI.Image>().color = Color.red;
+            }
+            /*if (slider.value >= expirationTime)
+            {
+                failImage.gameObject.SetActive(true);
+            }*/
+            yield return null;
+        }
     }
 
     Recipe GenerateRecipe()
@@ -135,7 +173,7 @@ public class RecipeGenerator : MonoBehaviour
             generatedRecipe = GenerateHardRecipe(6, 9);
         }
         Debug.Log("Generated recipe: " + generatedRecipe.GetRecipeName());
-        AddTextBoxToPanel(indexLastRecipe, generatedRecipe.GetRecipeName());
+        AddTextBoxToPanel(indexLastRecipe, generatedRecipe.GetRecipeName(), generatedRecipe.GetExpirationTime());
         indexLastRecipe++;
         return generatedRecipe;
     }
