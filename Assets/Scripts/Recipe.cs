@@ -44,6 +44,11 @@ public class Recipe : MonoBehaviour
         return expirationTime;
     }
 
+    public float GetProbability()
+    {
+        return probability;
+    }
+
     public void SetExpirationTime(float expirationTime)
     {
         this.expirationTime = expirationTime;

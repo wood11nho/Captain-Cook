@@ -142,19 +142,22 @@ public class RecipeGenerator : MonoBehaviour
 
     Recipe GenerateEasyRecipe(int startPosition, int endPosition)
     {
-        Recipe easyRecipe = recipes[Random.Range(startPosition, endPosition)];
+        Recipe easyRecipeChoice = recipes[Random.Range(startPosition, endPosition)];
+        Recipe easyRecipe = new Recipe(easyRecipeChoice.GetRecipeName(), easyRecipeChoice.GetIngredientNames(), easyRecipeChoice.GetExpirationTime(), easyRecipeChoice.GetProbability());
         return easyRecipe;
     }
 
     Recipe GenerateMediumRecipe(int startPosition, int endPosition)
     {
-        Recipe mediumRecipe = recipes[Random.Range(startPosition, endPosition)];
+        Recipe mediumRecipeChoice = recipes[Random.Range(startPosition, endPosition)];
+        Recipe mediumRecipe = new Recipe(mediumRecipeChoice.GetRecipeName(), mediumRecipeChoice.GetIngredientNames(), mediumRecipeChoice.GetExpirationTime(), mediumRecipeChoice.GetProbability());
         return mediumRecipe;
     }
 
     Recipe GenerateHardRecipe(int startPosition, int endPosition)
     {
-        Recipe hardRecipe = recipes[Random.Range(startPosition, endPosition)];
+        Recipe hardRecipeChoice = recipes[Random.Range(startPosition, endPosition)];
+        Recipe hardRecipe = new Recipe(hardRecipeChoice.GetRecipeName(), hardRecipeChoice.GetIngredientNames(), hardRecipeChoice.GetExpirationTime(), hardRecipeChoice.GetProbability());
         return hardRecipe;
     }
 

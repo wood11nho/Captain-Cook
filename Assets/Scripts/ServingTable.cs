@@ -86,6 +86,7 @@ public class ServingTable : MonoBehaviour, IUsable
             else
             {
                 Debug.Log("Recipe does not match!");
+                gameManager.GetComponent<GameManager>().AddStrike();
             }
 
             Destroy(pickedUpObject);
@@ -127,7 +128,55 @@ public class ServingTable : MonoBehaviour, IUsable
 
     void Update()
     {
-        //Debug.Log(OpenedRecipes[0].GetRecipeName());
-        //Debug.Log(OpenedRecipes);
+        List<int> indexesToRemove = new List<int>();
+        for (int i = OpenedRecipes.Count - 1; i >= 0; i--)
+        {
+            OpenedRecipes[i].SetExpirationTime(OpenedRecipes[i].GetExpirationTime() - Time.deltaTime);
+
+            if (OpenedRecipes[i].GetExpirationTime() <= 0.0f)
+            {
+                gameManager.GetComponent<GameManager>().AddStrike();
+                indexesToRemove.Add(i);
+            }
+
+        }
+
+        for(int i = 0; i < indexesToRemove.Count; i++)
+        {
+            RemoveRecipeFromOpened(OpenedRecipes[indexesToRemove[i]]);
+            recipeGenerator.GetComponent<RecipeGenerator>().DecrementIndexLastRecipe();
+            Destroy(activeRecipesUI.transform.GetChild(indexesToRemove[i]).gameObject);
+
+            for (int nextRecipeInLineIndex = indexesToRemove[i] + 1; nextRecipeInLineIndex <= OpenedRecipes.Count; nextRecipeInLineIndex++)
+            {
+                RectTransform rectTransform = activeRecipesUI.transform.GetChild(nextRecipeInLineIndex).GetComponent<RectTransform>();
+                rectTransform.localPosition = new Vector3(rectTransform.localPosition.x - 200, rectTransform.localPosition.y, rectTransform.localPosition.z);
+            }
+        }
+
     }
+    void LateUpdate()
+    {
+        /*
+        for (int i = OpenedRecipes.Count - 1; i >= 0; i--)
+        {
+
+            if (OpenedRecipes[i].GetExpirationTime() <= 0.0f)
+            {
+                gameManager.GetComponent<GameManager>().AddStrike();
+                Debug.Log("Recipe expired index: " + i);
+                RemoveRecipeFromOpened(OpenedRecipes[i]);
+                recipeGenerator.GetComponent<RecipeGenerator>().DecrementIndexLastRecipe();
+                Destroy(activeRecipesUI.transform.GetChild(i).gameObject);
+
+                for (int nextRecipeInLineIndex = i + 1; nextRecipeInLineIndex <= OpenedRecipes.Count; nextRecipeInLineIndex++)
+                {
+                    RectTransform rectTransform = activeRecipesUI.transform.GetChild(nextRecipeInLineIndex).GetComponent<RectTransform>();
+                    rectTransform.localPosition = new Vector3(rectTransform.localPosition.x - 200, rectTransform.localPosition.y, rectTransform.localPosition.z);
+                }
+            }
+        }
+        */
+    }
+
 }

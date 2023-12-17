@@ -1,9 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+    [SerializeField]
+    private TextMeshProUGUI scoreText;
+
+    [SerializeField]
+    private TextMeshProUGUI timeLeftText;
+
+    [SerializeField]
+    private RawImage[] strikesImages;
+
     [SerializeField]
     private GameObject recipeGenerator;
 
@@ -15,6 +26,8 @@ public class GameManager : MonoBehaviour
     private int score;
 
     private int strikes;
+
+    private bool gameStarted = false;
 
     // Start is called before the first frame update
     void Awake()
@@ -37,11 +50,23 @@ public class GameManager : MonoBehaviour
             {
                 Debug.Log("Game Over!");
             }
+            else
+            {
+                if (gameStarted)
+                {
+                    scoreText.text = "Score: " + score;
+                    timeLeftText.text = "Time left: " + (int)(gameDuration - timeElapsed);
+                }
+                
+            }
         }
     }
 
     public void StartGame()
     {
+        scoreText.gameObject.SetActive(true);
+        timeLeftText.gameObject.SetActive(true);
+        gameStarted = true;
         recipeGenerator.GetComponent<RecipeGenerator>().StartRecipeGenerator();
         timeElapsed = 0.0f;
     }
@@ -65,6 +90,16 @@ public class GameManager : MonoBehaviour
     public float GetTimeElapsed()
     {
         return timeElapsed;
+    }
+
+    public void AddStrike()
+    {
+        if(strikes < 3)
+        {
+            strikes++;
+            strikesImages[strikes - 1].gameObject.SetActive(true);
+        }
+        
     }
 
 }
