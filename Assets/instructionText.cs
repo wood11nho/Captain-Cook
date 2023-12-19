@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-
-public class HighlightObject: MonoBehaviour
+public class instructionText: MonoBehaviour
 {
     [SerializeField]
     private List<Renderer> renderers;
@@ -60,7 +59,7 @@ public class HighlightObject: MonoBehaviour
         if (promtText != null)
         {
             promtText.text = text;
-        }
+        } 
     }
 
 }
