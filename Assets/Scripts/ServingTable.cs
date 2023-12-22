@@ -13,6 +13,12 @@ public class ServingTable : MonoBehaviour, IUsable
 
     [SerializeField]
     private GameObject gameManager;
+
+    [SerializeField]
+    private AudioSource recipeMatchesAudioSource;
+
+    [SerializeField]
+    private AudioSource recipeDoesNotMatchAudioSource;
     public UnityEvent OnUse => throw new System.NotImplementedException();
 
     private List<Recipe> OpenedRecipes = new List<Recipe>();
@@ -80,12 +86,14 @@ public class ServingTable : MonoBehaviour, IUsable
             if(recipeMatches)
             {
                 Debug.Log("Recipe matches!");
+                recipeMatchesAudioSource.Play();
                 RemoveRecipeFromOpened(matchingRecipe);
                 gameManager.GetComponent<GameManager>().AddScore(gameManager.GetComponent<GameManager>().CalculateRecipeScore(matchingRecipe));
             }
             else
             {
                 Debug.Log("Recipe does not match!");
+                recipeDoesNotMatchAudioSource.Play();
                 gameManager.GetComponent<GameManager>().AddStrike();
             }
 
@@ -135,6 +143,7 @@ public class ServingTable : MonoBehaviour, IUsable
 
             if (OpenedRecipes[i].GetExpirationTime() <= 0.0f)
             {
+                recipeDoesNotMatchAudioSource.Play();
                 gameManager.GetComponent<GameManager>().AddStrike();
                 indexesToRemove.Add(i);
             }

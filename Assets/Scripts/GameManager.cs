@@ -2,11 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
 
 public class GameManager : MonoBehaviour
 {
+    [SerializeField]
+    private GameObject player;
+
+    [SerializeField]
+    private GameObject servingTable;
+
+    [SerializeField]
+    private GameObject activeRecipesUI; 
+    
+    [SerializeField]
+    private GameObject pickupUI;
+
+
     [SerializeField]
     private TextMeshProUGUI scoreText;
 
@@ -49,6 +63,15 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI totalScoreText;
 
+    [SerializeField]
+    private GameObject musicPlayer;
+
+    [SerializeField]
+    private AudioClip winMusic;
+
+    [SerializeField]
+    private AudioClip loseMusic;
+
     private float timeElapsed = 0.0f;
 
     private int score;
@@ -68,6 +91,7 @@ public class GameManager : MonoBehaviour
     {
         score = 0;
         strikes = 0;
+        servingTable.layer = LayerMask.NameToLayer("IgnoreRaycast");
     }
 
     // Update is called once per frame
@@ -101,6 +125,7 @@ public class GameManager : MonoBehaviour
 
     public void StartGame()
     {
+        servingTable.layer = LayerMask.NameToLayer("Interactable");
         scoreText.gameObject.SetActive(true);
         timeLeftText.gameObject.SetActive(true);
         gameStarted = true;
@@ -110,6 +135,20 @@ public class GameManager : MonoBehaviour
 
     public void StopGame()
     {
+
+        //disable player movement
+        Destroy(player.GetComponent<PlayerLook>());
+        Destroy(player.GetComponent<PlayerMotor>());
+        Destroy(player.GetComponent<ItemPickup>());
+        player.GetComponent<CharacterController>().enabled = false;
+
+        activeRecipesUI.SetActive(false);
+        pickupUI.SetActive(false);
+
+        for(int i = 0; i < strikesImages.Length; i++)
+        {
+            strikesImages[i].gameObject.SetActive(false);
+        }
         scoreText.gameObject.SetActive(false);
         timeLeftText.gameObject.SetActive(false);
         recipeGenerator.GetComponent<RecipeGenerator>().StopRecipeGenerator();
@@ -119,11 +158,15 @@ public class GameManager : MonoBehaviour
 
         if (!gameWon)
         {
+            //musicPlayer.GetComponent<AudioManager>().changeToLoseMusic();
+            musicPlayer.GetComponent<AudioManager>().changeBackgroundMusic(loseMusic);
             strikesPenalizationText.text = "All";
             survivedLevelScore = 0;
         }
         else
         {
+            //musicPlayer.GetComponent<AudioManager>().changeToWinMusic();
+            musicPlayer.GetComponent<AudioManager>().changeBackgroundMusic(winMusic);
             gameOverText.text = "You Survived!";
             strikesPenalizationText.text = "-" + strikes.ToString();
         }
@@ -143,9 +186,14 @@ public class GameManager : MonoBehaviour
 
     }
 
+    public void RestartLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
     public bool LeftoversExist()
     {
-        if(GameObject.FindGameObjectsWithTag("Ingredient").Length > 0)
+        if(GameObject.FindGameObjectsWithTag("Ingredient").Length > 1)
         {
             for(int i = 0; i < GameObject.FindGameObjectsWithTag("Ingredient").Length; i++)
             {

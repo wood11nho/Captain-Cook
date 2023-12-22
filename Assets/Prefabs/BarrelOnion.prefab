@@ -63,6 +63,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: OnionSingleIngredient
       objectReference: {fileID: 0}
+    - target: {fileID: 159843499558770510, guid: 514f035307c5c4d4185122358cd371ba,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 2759057155024388917, guid: 514f035307c5c4d4185122358cd371ba, type: 3}
     - {fileID: 1686693315717499055, guid: 514f035307c5c4d4185122358cd371ba, type: 3}

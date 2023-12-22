@@ -7,6 +7,10 @@ public class AudioManager : MonoBehaviour
     
     public AudioSource backgroundMusic;
 
+    public AudioClip winMusic;
+
+    public AudioClip loseMusic;
+
     void Start()
     {
         
@@ -22,6 +26,20 @@ public class AudioManager : MonoBehaviour
     {
         backgroundMusic.Stop();
         backgroundMusic.clip = currentMusic;
+        backgroundMusic.Play();
+    }
+
+    public void changeToWinMusic()
+    {
+        backgroundMusic.Stop();
+        backgroundMusic.clip = winMusic;
+        backgroundMusic.Play();
+    }
+
+    public void changeToLoseMusic()
+    {
+        backgroundMusic.Stop();
+        backgroundMusic.clip = loseMusic;
         backgroundMusic.Play();
     }
 
