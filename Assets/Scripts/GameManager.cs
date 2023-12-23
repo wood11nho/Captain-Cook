@@ -72,6 +72,12 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private AudioClip loseMusic;
 
+    [SerializeField]
+    private AudioSource winAudioSource;
+
+    [SerializeField]
+    private AudioSource loseAudioSource;
+
     private float timeElapsed = 0.0f;
 
     private int score;
@@ -159,15 +165,21 @@ public class GameManager : MonoBehaviour
         if (!gameWon)
         {
             //musicPlayer.GetComponent<AudioManager>().changeToLoseMusic();
-            musicPlayer.GetComponent<AudioManager>().changeBackgroundMusic(loseMusic);
+            //musicPlayer.GetComponent<AudioManager>().changeBackgroundMusic(loseMusic);
+            //musicPlayer.GetComponent<AudioSource>().loop = false;
+            musicPlayer.GetComponent<AudioManager>().stopBackgroundMusic();
+            loseAudioSource.Play();
             strikesPenalizationText.text = "All";
             survivedLevelScore = 0;
         }
         else
         {
             //musicPlayer.GetComponent<AudioManager>().changeToWinMusic();
-            musicPlayer.GetComponent<AudioManager>().changeBackgroundMusic(winMusic);
-            gameOverText.text = "You Survived!";
+            //musicPlayer.GetComponent<AudioManager>().changeBackgroundMusic(winMusic);
+            //musicPlayer.GetComponent<AudioSource>().loop = false;
+            musicPlayer.GetComponent<AudioManager>().stopBackgroundMusic();
+            winAudioSource.Play();
+            gameOverText.text = "You Win!";
             strikesPenalizationText.text = "-" + strikes.ToString();
         }
 

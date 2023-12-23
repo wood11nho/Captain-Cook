@@ -28,6 +28,10 @@ public class AudioManager : MonoBehaviour
         backgroundMusic.clip = currentMusic;
         backgroundMusic.Play();
     }
+    public void stopBackgroundMusic()
+    {
+        backgroundMusic.Stop();
+    }   
 
     public void changeToWinMusic()
     {

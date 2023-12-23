@@ -129,6 +129,15 @@ public class ServingTable : MonoBehaviour, IUsable
         OpenedRecipes.Remove(recipe);
     }
 
+    public void RemoveAllRecipesFromOpened()
+    {
+        for(int i = OpenedRecipes.Count - 1; i >= 0; i--)
+        {
+            Destroy(activeRecipesUI.transform.GetChild(i).gameObject);
+            OpenedRecipes.RemoveAt(i);
+        }
+    }
+
     void Awake()
     {
         //OpenedRecipes.Add(new Recipe("Sausage Sandwich", new List<string>{ "BreadSliceIngredient", "SausageSliceIngredient", "BreadSliceIngredient" }, 30f));
