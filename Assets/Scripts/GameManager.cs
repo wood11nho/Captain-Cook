@@ -203,6 +203,11 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
+    public void LoadNextLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+    }
+
     public bool LeftoversExist()
     {
         if(GameObject.FindGameObjectsWithTag("Ingredient").Length > 1)
