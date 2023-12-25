@@ -111,7 +111,7 @@ public class GameManager : MonoBehaviour
         else
         {
             timeElapsed += Time.deltaTime;
-            if (timeElapsed >= gameDuration)
+            if (timeElapsed >= gameDuration && gameStarted)
             {
                 Debug.Log("Game Over!");
                 gameWon = true;
