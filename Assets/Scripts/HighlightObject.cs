@@ -1,13 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
-public class HighlightObject : MonoBehaviour
+
+public class HighlightObject: MonoBehaviour
 {
     [SerializeField]
     private List<Renderer> renderers;
 
     private List<Material> materials;
+
+    [SerializeField]
+    private TextMeshProUGUI promtText;
 
     [SerializeField]
     private Color highlightColor = new Color(0.5f, 0.5f, 0.5f, 0.25f);
@@ -39,14 +44,22 @@ public class HighlightObject : MonoBehaviour
                 material.EnableKeyword("_EMISSION");
                 material.SetColor("_EmissionColor", originalColor * highlightColor);
             }
+            ShowPromptMessage("Press E to view instructions"); // Call to display the message
         }
         else
         {
             foreach (Material material in materials)
             {
                 material.DisableKeyword("_EMISSION");
-
             }
+            ShowPromptMessage(""); // Optionally clear the message
+        }
+    }
+    public void ShowPromptMessage(string text)
+    {
+        if (promtText != null)
+        {
+            promtText.text = text;
         }
     }
 
