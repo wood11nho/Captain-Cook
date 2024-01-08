@@ -55,15 +55,15 @@ public class RecipeGenerator : MonoBehaviour
     {
         timeModifier = easyRecipeProbability / (gameManager.GetComponent<GameManager>().GetGameDuration() - maxTimeBetweenRecipes);
 
-        Recipe sausageSandwich = new("Sausage Sandwich", new List<string> { "BreadSliceIngredient", "SausageSliceIngredient", "BreadSliceIngredient" }, 30.0f, easyRecipeProbability);
-        Recipe steakSandwich = new("Steak Sandwich", new List<string> { "BreadSliceIngredient", "SteakCookedIngredient", "BreadSliceIngredient" }, 30.0f, easyRecipeProbability);
-        Recipe fishFilletSandwich = new("Salmon Sandwich", new List<string> { "BreadSliceIngredient", "FishFilletCookedIngredient", "BreadSliceIngredient" }, 30.0f, easyRecipeProbability);
-        Recipe mediumSteakSandwich = new("Medium Steak Sandwich", new List<string> { "BreadSliceIngredient", "SteakCookedIngredient", "PotatoCutCookedIngredient", "OnionSliceIngredient", "BreadSliceIngredient" }, 45.0f, mediumRecipeProbability);
-        Recipe mediumSausageSandwich = new("Medium Sausage Sandwich", new List<string> { "BreadSliceIngredient", "SausageSliceIngredient", "PotatoCutCookedIngredient", "OnionSliceIngredient", "BreadSliceIngredient" }, 45.0f, mediumRecipeProbability); 
-        Recipe mediumFishFilletSandwich = new("Medium Salmon Sandwich", new List<string> { "BreadSliceIngredient", "FishFilletCookedIngredient", "PotatoCutCookedIngredient", "OnionSliceIngredient", "BreadSliceIngredient" }, 45.0f, mediumRecipeProbability);
-        Recipe hardSteakSausageSandwich = new("Hard Steak Sausage Sandwich", new List<string> { "BreadSliceIngredient", "SteakCookedIngredient", "SausageSliceIngredient", "PotatoCutCookedIngredient", "OnionSliceIngredient", "BreadSliceIngredient" }, 60.0f, hardRecipeProbability);
-        Recipe hardFishFilletSausageSandwich = new("Hard Salmon Sausage Sandwich", new List<string> { "BreadSliceIngredient", "FishFilletCookedIngredient", "SausageSliceIngredient", "PotatoCutCookedIngredient", "OnionSliceIngredient", "BreadSliceIngredient" }, 60.0f, hardRecipeProbability);
-        Recipe meatLoverSandwich = new("Meat Lover Sandwich", new List<string> { "BreadSliceIngredient", "SteakCookedIngredient", "FishFilletCookedIngredient","SausageSliceIngredient", "BreadSliceIngredient" }, 60.0f, hardRecipeProbability);
+        Recipe sausageSandwich = new("Sausage Sandwich", new List<string> { "BreadSliceIngredient", "SausageSliceIngredient", "BreadSliceIngredient" }, 60.0f, easyRecipeProbability);
+        Recipe steakSandwich = new("Steak Sandwich", new List<string> { "BreadSliceIngredient", "SteakCookedIngredient", "BreadSliceIngredient" }, 60.0f, easyRecipeProbability);
+        Recipe fishFilletSandwich = new("Salmon Sandwich", new List<string> { "BreadSliceIngredient", "FishFilletCookedIngredient", "BreadSliceIngredient" }, 60.0f, easyRecipeProbability);
+        Recipe mediumSteakSandwich = new("Medium Steak Sandwich", new List<string> { "BreadSliceIngredient", "SteakCookedIngredient", "PotatoCutCookedIngredient", "OnionSliceIngredient", "BreadSliceIngredient" }, 85.0f, mediumRecipeProbability);
+        Recipe mediumSausageSandwich = new("Medium Sausage Sandwich", new List<string> { "BreadSliceIngredient", "SausageSliceIngredient", "PotatoCutCookedIngredient", "OnionSliceIngredient", "BreadSliceIngredient" }, 85.0f, mediumRecipeProbability); 
+        Recipe mediumFishFilletSandwich = new("Medium Salmon Sandwich", new List<string> { "BreadSliceIngredient", "FishFilletCookedIngredient", "PotatoCutCookedIngredient", "OnionSliceIngredient", "BreadSliceIngredient" }, 85.0f, mediumRecipeProbability);
+        Recipe hardSteakSausageSandwich = new("Hard Steak Sausage Sandwich", new List<string> { "BreadSliceIngredient", "SteakCookedIngredient", "SausageSliceIngredient", "PotatoCutCookedIngredient", "OnionSliceIngredient", "BreadSliceIngredient" }, 90.0f, hardRecipeProbability);
+        Recipe hardFishFilletSausageSandwich = new("Hard Salmon Sausage Sandwich", new List<string> { "BreadSliceIngredient", "FishFilletCookedIngredient", "SausageSliceIngredient", "PotatoCutCookedIngredient", "OnionSliceIngredient", "BreadSliceIngredient" }, 90.0f, hardRecipeProbability);
+        Recipe meatLoverSandwich = new("Meat Lover Sandwich", new List<string> { "BreadSliceIngredient", "SteakCookedIngredient", "FishFilletCookedIngredient","SausageSliceIngredient", "BreadSliceIngredient" }, 90.0f, hardRecipeProbability);
 
         recipes.Add(sausageSandwich);
         recipes.Add(steakSandwich);
@@ -104,6 +104,13 @@ public class RecipeGenerator : MonoBehaviour
     {
         gameStarted = true;
         StartCoroutine(GenerateRecipesCoroutine(minTimeBetweenRecipes, maxTimeBetweenRecipes));
+    }
+
+    public void StopRecipeGenerator()
+    {
+        gameStarted = false;
+        servingTable.GetComponent<ServingTable>().RemoveAllRecipesFromOpened();
+        StopAllCoroutines();
     }
 
     public void AddTextBoxToPanel(int indexLastRecipe, string recipeName, float expirationTime)

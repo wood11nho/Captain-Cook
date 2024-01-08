@@ -63,6 +63,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: FishFillet
       objectReference: {fileID: 0}
+    - target: {fileID: 5536447206541363498, guid: d75503b2a1d3ffa4287582f8fdc1c1e6,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: -5355147837796896582, guid: d75503b2a1d3ffa4287582f8fdc1c1e6, type: 3}
     - {fileID: -1734904859430351797, guid: d75503b2a1d3ffa4287582f8fdc1c1e6, type: 3}
