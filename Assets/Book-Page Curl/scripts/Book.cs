@@ -52,6 +52,8 @@ public class Book : MonoBehaviour
     public Image Right;
     public Image RightNext;
     public UnityEvent OnFlip;
+    public bool isPageFlippingLeft = false;
+    public bool isPageFlippingRight = false;
 
     float radius1, radius2;
     Vector3 sb, st, c, ebr, ebl, f;
@@ -137,30 +139,46 @@ public class Book : MonoBehaviour
         // Handle keyboard input for flipping pages
         if (interactable)
         {
-            if (Input.GetKeyDown(KeyCode.RightArrow))
+            if (Input.GetKeyDown(KeyCode.RightArrow) && isPageFlippingLeft == false && isPageFlippingRight == false)
             {
                 FlipPage(FlipMode.RightToLeft);
             }
-            else if (Input.GetKeyDown(KeyCode.LeftArrow))
+            else if (Input.GetKeyDown(KeyCode.LeftArrow) && isPageFlippingLeft == false && isPageFlippingRight == false)
             {
                 FlipPage(FlipMode.LeftToRight);
             }
         }
     }
 
+    IEnumerator FlippingPageRightToLeft()
+    {
+        isPageFlippingLeft = true;
+        // Simulate dragging the right page to the left
+        DragRightPageToPoint(ebl);
+        ReleasePage();
+        yield return new WaitForSeconds(0.2f);
+        isPageFlippingLeft = false;
+    }
+
+    IEnumerator FlippingPageLeftToRight()
+    {
+        isPageFlippingRight = true;
+        // Simulate dragging the left page to the right
+        DragLeftPageToPoint(ebr);
+        ReleasePage();
+        yield return new WaitForSeconds(0.2f);
+        isPageFlippingRight = false;
+    }
+
     private void FlipPage(FlipMode flipMode)
     {
         if (flipMode == FlipMode.RightToLeft && currentPage < bookPages.Length - 1)
         {
-            // Simulate dragging the right page to the left
-            DragRightPageToPoint(ebl);
-            ReleasePage();
+            StartCoroutine(FlippingPageRightToLeft());
         }
         else if (flipMode == FlipMode.LeftToRight && currentPage > 0)
         {
-            // Simulate dragging the left page to the right
-            DragLeftPageToPoint(ebr);
-            ReleasePage();
+            StartCoroutine(FlippingPageLeftToRight());
         }
     }
 

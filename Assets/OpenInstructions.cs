@@ -2,6 +2,7 @@ using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 public class OpenInstructions : MonoBehaviour, IUsable
 {
@@ -13,10 +14,7 @@ public class OpenInstructions : MonoBehaviour, IUsable
     public GameObject book;
 
     [SerializeField]
-    private GameObject promtText;
-
-
-
+    Text pickUpText;
 
     void Start()
     {
@@ -25,14 +23,36 @@ public class OpenInstructions : MonoBehaviour, IUsable
         ignoreRaycastLayerMaskInt = LayerMask.NameToLayer("IgnoreRaycast");
     }
 
+    IEnumerator StopPlayerAndRead(GameObject player)
+    {
+        CharacterController controller = player.GetComponent<CharacterController>();
+        PlayerLook playerLook = player.GetComponent<PlayerLook>();
+        playerLook.enabled = false;
+        controller.enabled = false;
+        pickUpText.text = "To close.";
+        while (displayInstructions)
+        {
+            yield return null;
+        }
+        StartCoroutine(StartPlayer(player));
+    }
+
+    IEnumerator StartPlayer(GameObject player)
+    {
+        CharacterController controller = player.GetComponent<CharacterController>();
+        PlayerLook playerLook = player.GetComponent<PlayerLook>();
+        playerLook.enabled = true;
+        controller.enabled = true;
+        pickUpText.text = "To interact.";
+        yield return null;
+    }
+
     public void Use(GameObject player)
     {
         displayInstructions = !displayInstructions;
         book.SetActive(displayInstructions);
-        promtText.SetActive(!displayInstructions);
-        
-        
 
+        StartCoroutine(StopPlayerAndRead(player));
 
     }
 
