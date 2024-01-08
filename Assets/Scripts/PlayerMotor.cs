@@ -10,6 +10,9 @@ public class PlayerMotor : MonoBehaviour
     private bool isGrounded;
     public float gravity = -9.8f;
     public float jumpHeight = 3f;
+
+    [SerializeField]
+    GameManager gameManager;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,6 +23,10 @@ public class PlayerMotor : MonoBehaviour
     void Update()
     {
         isGrounded = controller.isGrounded;
+        if (transform.position.y <= 3.83)
+        {
+            gameManager.GetComponent<GameManager>().StopGame();
+        }
     }
 
     // Receive the inputs for our InputManager.cs and apply them to our character controller
