@@ -5,6 +5,10 @@ TagManager:
   serializedVersion: 2
   tags:
   - Ingredient
+  - pyramid
+  - plane
+  - boatAI
+  - destinationArea
   layers:
   - Default
   - TransparentFX
@@ -15,8 +19,8 @@ TagManager:
   - Pickable
   - Interactable
   - IgnoreRaycast
-  - 
-  - 
+  - NavMeshSurface
+  - NavMeshObstacle
   - 
   - 
   - 
