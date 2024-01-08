@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 1263368875}
-  m_IndirectSpecularColor: {r: 0.11287965, g: 0.17347167, b: 0.31126618, a: 1}
+  m_IndirectSpecularColor: {r: 0.11290629, g: 0.17344856, b: 0.31113723, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2284,18 +2284,6 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -2415858050768349167, guid: 4fe7ec1d555ab494d836addf3c4b2c0f, type: 3}
---- !u!224 &842779921 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 696646413739043258, guid: 41a0ed8fe97f47841aa6bdb6f30e8919,
-    type: 3}
-  m_PrefabInstance: {fileID: 1822254259790057695}
-  m_PrefabAsset: {fileID: 0}
---- !u!223 &842779922 stripped
-Canvas:
-  m_CorrespondingSourceObject: {fileID: 5239575615891568011, guid: 41a0ed8fe97f47841aa6bdb6f30e8919,
-    type: 3}
-  m_PrefabInstance: {fileID: 1822254259790057695}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &786952088 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6880431400400883933, guid: 41a0ed8fe97f47841aa6bdb6f30e8919,
@@ -2308,6 +2296,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!224 &842779921 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 696646413739043258, guid: 41a0ed8fe97f47841aa6bdb6f30e8919,
+    type: 3}
+  m_PrefabInstance: {fileID: 1822254259790057695}
+  m_PrefabAsset: {fileID: 0}
+--- !u!223 &842779922 stripped
+Canvas:
+  m_CorrespondingSourceObject: {fileID: 5239575615891568011, guid: 41a0ed8fe97f47841aa6bdb6f30e8919,
+    type: 3}
+  m_PrefabInstance: {fileID: 1822254259790057695}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &904013976 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -7734502334919214562, guid: 4fe7ec1d555ab494d836addf3c4b2c0f,
@@ -3071,7 +3071,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 502488916}
+    m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 5797428246745224015, guid: 24fa55c4f1386e04ea2800527f88c4e1,
         type: 3}
@@ -3481,7 +3481,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1856838788}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.25}
   m_AnchorMax: {x: 1, y: 0.75}
@@ -4571,12 +4571,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1776530716}
   m_CullTransparentMesh: 1
---- !u!4 &1788544683 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5800350169276503837, guid: 24fa55c4f1386e04ea2800527f88c4e1,
-    type: 3}
-  m_PrefabInstance: {fileID: 1367459752}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1797122952 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -5026275438924245945, guid: 4fe7ec1d555ab494d836addf3c4b2c0f,
@@ -4952,12 +4946,6 @@ Camera:
   m_CorrespondingSourceObject: {fileID: 756170575475174711, guid: c56807ffa2679ff4bb92434c98b78127,
     type: 3}
   m_PrefabInstance: {fileID: 649057463572689199}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1992274945 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6668236431164625144, guid: 79dc38584054caf4c8ef6f0a1b71b261,
-    type: 3}
-  m_PrefabInstance: {fileID: 1050108123}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1996884377 stripped
 GameObject:
@@ -5795,7 +5783,7 @@ PrefabInstance:
         type: 3}
       propertyPath: player
       value: 
-      objectReference: {fileID: 1992274945}
+      objectReference: {fileID: 1364442906}
     - target: {fileID: 7071653814716955872, guid: 86920437d7784244aa8a8ef445994220,
         type: 3}
       propertyPath: pickupUI
@@ -6493,3 +6481,5 @@ SceneRoots:
   - {fileID: 3085241781075413218}
   - {fileID: 438778226640188167}
   - {fileID: 5944922634808723093}
+  - {fileID: 1581026955}
+  - {fileID: 1367459752}
