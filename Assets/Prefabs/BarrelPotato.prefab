@@ -63,6 +63,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PotatoIngredient
       objectReference: {fileID: 0}
+    - target: {fileID: 8238395751750635857, guid: 6b8598197da8c2d42b8eaa27828f8a28,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 436084068770122363, guid: 6b8598197da8c2d42b8eaa27828f8a28, type: 3}
     - {fileID: 3584736717854117115, guid: 6b8598197da8c2d42b8eaa27828f8a28, type: 3}
