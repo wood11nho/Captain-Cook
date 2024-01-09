@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.Audio;
@@ -21,18 +22,54 @@ public class OptionsMenu : MonoBehaviour
     [SerializeField]
     public Dropdown qualityDropdown;
 
+    [SerializeField]
+    public GameObject resolutionDropdownGO;
+
+    [SerializeField]
+    public GameObject fullscreenToggleGO;
+
+    [SerializeField]
+    public GameObject volumeSliderGO;
+
+    [SerializeField]
+    public GameObject qualityDropdownGO;
+
+    [SerializeField]
+    public GameObject backButton;
+
+    [SerializeField]
+    public GameObject volumeText;
+
+    [SerializeField]
+    public GameObject resolutionText;
+
+    [SerializeField]
+    public GameObject qualityText;
+
+    [SerializeField]
+    public GameObject optionsText;
+
     Resolution[] resolutions;
 
-    void Start()
+    public string ParameterName = "MasterVolume";
+
+    void Awake()
     {
         // get the player preferences for the resolution, fullscreen, and volume
-        
+
+        /*
+        resolutionDropdown.enabled = false;
+        fullscreenToggle.enabled = false;
+        volumeSlider.enabled = false;
+        qualityDropdown.enabled = false;
+        */
+
         int resolutionIndex = PlayerPrefs.GetInt("resolution", 0);
         int fullscreenIndex = PlayerPrefs.GetInt("fullscreen", 1);
         float volume = PlayerPrefs.GetFloat("volume", 0.75f);
         int qualityIndex = PlayerPrefs.GetInt("quality", 2);
 
-        audioMixer.SetFloat("volume", volume);
+        AudioListener.volume = volume;
         volumeSlider.value = volume;
 
         Screen.fullScreen = fullscreenIndex == 1 ? true : false;
@@ -72,6 +109,32 @@ public class OptionsMenu : MonoBehaviour
         qualityDropdown.value = qualityIndex;
     }
 
+    public void activateOptionsMenuUI()
+    {
+        resolutionDropdownGO.SetActive(true);
+        fullscreenToggleGO.SetActive(true);
+        volumeSliderGO.SetActive(true);
+        qualityDropdownGO.SetActive(true);
+        backButton.SetActive(true);
+        volumeText.SetActive(true);
+        resolutionText.SetActive(true);
+        qualityText.SetActive(true);
+        optionsText.SetActive(true);
+    }
+
+    public void deactivateOptionsMenuUI()
+    {
+        resolutionDropdownGO.SetActive(false);
+        fullscreenToggleGO.SetActive(false);
+        volumeSliderGO.SetActive(false);
+        qualityDropdownGO.SetActive(false);
+        backButton.SetActive(false);
+        volumeText.SetActive(false);
+        resolutionText.SetActive(false);
+        qualityText.SetActive(false);
+        optionsText.SetActive(false);
+    }
+
     public void setResolution(int resolutionIndex)
     {
         Resolution resolution = resolutions[resolutionIndex];
@@ -81,7 +144,7 @@ public class OptionsMenu : MonoBehaviour
 
     public void setVolume(float volume)
     {
-        audioMixer.SetFloat("volume", volume);
+        AudioListener.volume = volume;
         PlayerPrefs.SetFloat("volume", volume);
     }
 
