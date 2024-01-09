@@ -93,8 +93,8 @@ public class ServingTable : MonoBehaviour, IUsable
             else
             {
                 Debug.Log("Recipe does not match!");
-                recipeDoesNotMatchAudioSource.Play();
                 gameManager.GetComponent<GameManager>().AddStrike();
+                recipeDoesNotMatchAudioSource.Play();
             }
 
             Destroy(pickedUpObject);

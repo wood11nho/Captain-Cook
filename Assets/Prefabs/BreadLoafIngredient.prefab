@@ -230,6 +230,7 @@ MonoBehaviour:
   renderers:
   - {fileID: 9127592672477135378}
   - {fileID: 312090680706299302}
+  promtText: {fileID: 0}
   highlightColor: {r: 0.5, g: 0.5, b: 0.5, a: 0.25}
   originalColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!65 &8006243533138526463
@@ -251,8 +252,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.3443277, y: 0.30906677, z: 0.861448}
-  m_Center: {x: 0.020945696, y: 0.017150817, z: -0.02102279}
+  m_Size: {x: 0.36666194, y: 0.30906677, z: 0.861448}
+  m_Center: {x: 0.0097785825, y: 0.017150823, z: -0.02102279}
 --- !u!1 &6634197304454813030
 GameObject:
   m_ObjectHideFlags: 0

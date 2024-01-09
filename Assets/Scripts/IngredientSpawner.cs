@@ -8,6 +8,7 @@ public class IngredientSpawner : MonoBehaviour, IUsable
     public UnityEvent OnUse => throw new System.NotImplementedException();
 
     [SerializeField] private GameObject spawnedIngredient;
+    [SerializeField] AudioSource spawnAudioSource;
 
     public void Use(GameObject player)
     {
@@ -29,6 +30,8 @@ public class IngredientSpawner : MonoBehaviour, IUsable
             }
             playerItemPickupComponent.SetPickedUpObject(newIngredient);
             newIngredient.transform.SetParent(playerPickUpHand);
+            spawnAudioSource.time = 2.5f;
+            spawnAudioSource.Play();
         }
         else
         {

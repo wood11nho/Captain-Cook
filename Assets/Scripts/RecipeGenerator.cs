@@ -91,9 +91,9 @@ public class RecipeGenerator : MonoBehaviour
         {
             if (gameStarted)
             {
-                easyRecipeProbability -= timeModifier * Time.deltaTime;
-                mediumRecipeProbability += timeModifier * 0.33f * Time.deltaTime;
-                hardRecipeProbability += timeModifier * 0.66f * Time.deltaTime;
+                easyRecipeProbability -= timeModifier * Time.deltaTime * 0.5f;
+                mediumRecipeProbability += timeModifier * Time.deltaTime * 0.33f;
+                hardRecipeProbability += timeModifier * Time.deltaTime * 0.17f;
             }
             
         }

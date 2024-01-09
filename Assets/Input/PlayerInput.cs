@@ -71,6 +71,15 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""OpenRecipeBook"",
+                    ""type"": ""Button"",
+                    ""id"": ""a5b7afd4-4de6-4e7d-a5c1-192c701b0383"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -271,6 +280,28 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""action"": ""Jump"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5c41bb24-65af-40e8-b76c-102f7ac6d02f"",
+                    ""path"": ""<Keyboard>/h"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""OpenRecipeBook"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""501a39c2-e4fd-4768-80ff-95150660fb5e"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""OpenRecipeBook"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -284,6 +315,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_Walk_Interact = m_Walk.FindAction("Interact", throwIfNotFound: true);
         m_Walk_Drop = m_Walk.FindAction("Drop", throwIfNotFound: true);
         m_Walk_Jump = m_Walk.FindAction("Jump", throwIfNotFound: true);
+        m_Walk_OpenRecipeBook = m_Walk.FindAction("OpenRecipeBook", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -350,6 +382,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_Walk_Interact;
     private readonly InputAction m_Walk_Drop;
     private readonly InputAction m_Walk_Jump;
+    private readonly InputAction m_Walk_OpenRecipeBook;
     public struct WalkActions
     {
         private @PlayerInput m_Wrapper;
@@ -359,6 +392,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         public InputAction @Interact => m_Wrapper.m_Walk_Interact;
         public InputAction @Drop => m_Wrapper.m_Walk_Drop;
         public InputAction @Jump => m_Wrapper.m_Walk_Jump;
+        public InputAction @OpenRecipeBook => m_Wrapper.m_Walk_OpenRecipeBook;
         public InputActionMap Get() { return m_Wrapper.m_Walk; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -383,6 +417,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Jump.started += instance.OnJump;
             @Jump.performed += instance.OnJump;
             @Jump.canceled += instance.OnJump;
+            @OpenRecipeBook.started += instance.OnOpenRecipeBook;
+            @OpenRecipeBook.performed += instance.OnOpenRecipeBook;
+            @OpenRecipeBook.canceled += instance.OnOpenRecipeBook;
         }
 
         private void UnregisterCallbacks(IWalkActions instance)
@@ -402,6 +439,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Jump.started -= instance.OnJump;
             @Jump.performed -= instance.OnJump;
             @Jump.canceled -= instance.OnJump;
+            @OpenRecipeBook.started -= instance.OnOpenRecipeBook;
+            @OpenRecipeBook.performed -= instance.OnOpenRecipeBook;
+            @OpenRecipeBook.canceled -= instance.OnOpenRecipeBook;
         }
 
         public void RemoveCallbacks(IWalkActions instance)
@@ -426,5 +466,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         void OnInteract(InputAction.CallbackContext context);
         void OnDrop(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
+        void OnOpenRecipeBook(InputAction.CallbackContext context);
     }
 }

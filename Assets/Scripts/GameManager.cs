@@ -92,6 +92,8 @@ public class GameManager : MonoBehaviour
 
     private bool gameWon = false;
 
+    private bool gameOver = false;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -103,28 +105,33 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(strikes >= 3)
+        if (!gameOver)
         {
-            Debug.Log("Game Over!");
-            StopGame();
-        }
-        else
-        {
-            timeElapsed += Time.deltaTime;
-            if (timeElapsed >= gameDuration && gameStarted)
+            if (strikes >= 3)
             {
+                gameOver = true;
                 Debug.Log("Game Over!");
-                gameWon = true;
                 StopGame();
             }
             else
             {
-                if (gameStarted)
+                timeElapsed += Time.deltaTime;
+                if (timeElapsed >= gameDuration && gameStarted)
                 {
-                    scoreText.text = "Score: " + score;
-                    timeLeftText.text = "Time left: " + (int)(gameDuration - timeElapsed);
+                    gameOver = true;
+                    Debug.Log("Game Over!");
+                    gameWon = true;
+                    StopGame();
                 }
-                
+                else
+                {
+                    if (gameStarted)
+                    {
+                        scoreText.text = "Score: " + score;
+                        timeLeftText.text = "Time left: " + (int)(gameDuration - timeElapsed);
+                    }
+
+                }
             }
         }
     }
@@ -141,7 +148,6 @@ public class GameManager : MonoBehaviour
 
     public void StopGame()
     {
-
         //disable player movement
         Destroy(player.GetComponent<PlayerLook>());
         Destroy(player.GetComponent<PlayerMotor>());
@@ -151,7 +157,7 @@ public class GameManager : MonoBehaviour
         activeRecipesUI.SetActive(false);
         pickupUI.SetActive(false);
 
-        for(int i = 0; i < strikesImages.Length; i++)
+        for (int i = 0; i < strikesImages.Length; i++)
         {
             strikesImages[i].gameObject.SetActive(false);
         }
@@ -167,9 +173,11 @@ public class GameManager : MonoBehaviour
             //musicPlayer.GetComponent<AudioManager>().changeToLoseMusic();
             //musicPlayer.GetComponent<AudioManager>().changeBackgroundMusic(loseMusic);
             //musicPlayer.GetComponent<AudioSource>().loop = false;
+            Debug.Log("AI PIERDUT");
             musicPlayer.GetComponent<AudioManager>().stopBackgroundMusic();
-            loseAudioSource.Play();
-            strikesPenalizationText.text = "All";
+            StartCoroutine(playGameOverSound(false));
+            //loseAudioSource.Play();
+            strikesPenalizationText.text = "ALL(3) x 50";
             survivedLevelScore = 0;
         }
         else
@@ -177,25 +185,39 @@ public class GameManager : MonoBehaviour
             //musicPlayer.GetComponent<AudioManager>().changeToWinMusic();
             //musicPlayer.GetComponent<AudioManager>().changeBackgroundMusic(winMusic);
             //musicPlayer.GetComponent<AudioSource>().loop = false;
+            Debug.Log("AI CASTIGAT");
             musicPlayer.GetComponent<AudioManager>().stopBackgroundMusic();
-            winAudioSource.Play();
+            StartCoroutine(playGameOverSound(true));
+            //winAudioSource.Play();
             gameOverText.text = "You Win!";
-            strikesPenalizationText.text = "-" + strikes.ToString();
+            strikesPenalizationText.text = "-" + strikes.ToString() + " x 50";
         }
 
-        if(LeftoversExist())
+        IEnumerator playGameOverSound(bool won)
+        {
+            yield return new WaitForSeconds(2.0f);
+            if (won)
+            {
+                winAudioSource.Play();
+            }
+            else
+            {
+                loseAudioSource.Play();
+            }
+        }
+
+        if (LeftoversExist())
         {
             noLeftoversBonus = 0;
         }
 
-        totalScore = score + survivedLevelScore + noLeftoversBonus  - strikesScore;
+        totalScore = score + survivedLevelScore + noLeftoversBonus - strikesScore;
         cookingScoreText.text = score.ToString();
         survivedLevelText.text = survivedLevelScore.ToString();
         noLeftoversBonusText.text = noLeftoversBonus.ToString();
         totalScoreText.text = totalScore.ToString();
 
         gameOverPanel.SetActive(true);
-
     }
 
     public void RestartLevel()
@@ -253,6 +275,16 @@ public class GameManager : MonoBehaviour
             strikesImages[strikes - 1].gameObject.SetActive(true);
         }
         
+    }
+
+    public int GetStrikes()
+    {
+        return strikes;
+    }
+
+    public void SetStrikes(int strikes)
+    {
+        this.strikes = strikes;
     }
 
     public bool GetGameWon()
