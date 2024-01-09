@@ -38,9 +38,14 @@ public class RecipeGenerator : MonoBehaviour
     [SerializeField]
     private GameObject textBoxPrefab;
 
+    [SerializeField]
+    private GameObject nPCsObject;
+
     private float timeModifier; 
 
     private List<Recipe> recipes = new List<Recipe>();
+
+    private GameObject[] npcs;
 
     private IEnumerator generateRecipesCoroutine;
 
@@ -49,6 +54,10 @@ public class RecipeGenerator : MonoBehaviour
     private int indexLastRecipe = 0;
 
     private RawImage failImage;
+
+    private int currentNpcIndex = 0;
+
+    private int totalChildrenNumberOfNPCsObject;
 
     // Start is called before the first frame update
     void Awake()
@@ -75,11 +84,49 @@ public class RecipeGenerator : MonoBehaviour
         recipes.Add(hardFishFilletSausageSandwich);
         recipes.Add(meatLoverSandwich);
 
+        npcs = new GameObject[nPCsObject.transform.childCount];
+        for (int i = 0; i < nPCsObject.transform.childCount; i++)
+        {
+            npcs[i] = nPCsObject.transform.GetChild(i).gameObject;
+        }
+
+        totalChildrenNumberOfNPCsObject = nPCsObject.transform.childCount;
+
     }
     public void DecrementIndexLastRecipe()
     {
+        npcs[0].SetActive(false);
+        // delete first element of vector npcs
+        for (int i = 0; i < totalChildrenNumberOfNPCsObject - 1; i++)
+        {
+            npcs[i] = npcs[i + 1];
+        }
+        totalChildrenNumberOfNPCsObject--;
         indexLastRecipe--;
+        currentNpcIndex--;
+        StartCoroutine(MoveNPCs(currentNpcIndex));
     }
+
+    IEnumerator MoveNPCs(int currentNpcIndex)
+    {
+        for (int i = 0; i < currentNpcIndex + 1; i++)
+        {
+            if (npcs[i].active == true)
+            {
+                Vector3 destination = npcs[i].transform.position + Vector3.forward;
+                npcs[i].GetComponent<Animator>().SetBool("isWalking", true);
+
+                while (Vector3.Distance(npcs[i].transform.position, destination) > 0.1f)
+                {
+                    npcs[i].transform.position = Vector3.MoveTowards(npcs[i].transform.position, destination, 0.5f * Time.deltaTime);
+                    yield return null;
+                }
+
+                npcs[i].GetComponent<Animator>().SetBool("isWalking", false);
+            }
+        }
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -181,6 +228,10 @@ public class RecipeGenerator : MonoBehaviour
         }
         Debug.Log("Generated recipe: " + generatedRecipe.GetRecipeName());
         AddTextBoxToPanel(indexLastRecipe, generatedRecipe.GetRecipeName(), generatedRecipe.GetExpirationTime());
+        if(currentNpcIndex >= 1)
+            npcs[currentNpcIndex].transform.position = new Vector3(npcs[currentNpcIndex - 1].transform.position.x, npcs[currentNpcIndex - 1].transform.position.y, npcs[currentNpcIndex - 1].transform.position.z - 1);
+        npcs[currentNpcIndex].SetActive(true);
+        currentNpcIndex++;
         indexLastRecipe++;
         return generatedRecipe;
     }
