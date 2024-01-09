@@ -191,6 +191,8 @@ public class GameManager : MonoBehaviour
             //winAudioSource.Play();
             gameOverText.text = "You Win!";
             strikesPenalizationText.text = "-" + strikes.ToString() + " x 50";
+
+
         }
 
         IEnumerator playGameOverSound(bool won)
@@ -227,7 +229,7 @@ public class GameManager : MonoBehaviour
 
     public void LoadNextLevel()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        SceneManager.LoadScene("LevelSelect");
     }
 
     public bool LeftoversExist()
