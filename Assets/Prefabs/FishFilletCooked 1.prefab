@@ -226,6 +226,7 @@ MonoBehaviour:
   renderers:
   - {fileID: 4720930023000002869}
   - {fileID: 4636003010138804048}
+  promtText: {fileID: 0}
   highlightColor: {r: 1, g: 1, b: 1, a: 0.25}
   originalColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &8236538077043870561
@@ -250,7 +251,7 @@ MonoBehaviour:
   cooked: 1
   burnt: 0
   cut: 0
-  burnTime: 3
+  burnTime: 8
   cookTime: 0
   cutTime: 0
 --- !u!1 &6075578822743918297

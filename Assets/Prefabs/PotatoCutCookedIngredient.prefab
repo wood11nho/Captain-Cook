@@ -195,7 +195,7 @@ MonoBehaviour:
   cooked: 1
   burnt: 0
   cut: 1
-  burnTime: 3
+  burnTime: 5
   cookTime: 0
   cutTime: 0
 --- !u!54 &2704077790692353709
@@ -263,6 +263,7 @@ MonoBehaviour:
   - {fileID: 6023560161971794850}
   - {fileID: 6552409911697763052}
   - {fileID: 434166100207456338}
+  promtText: {fileID: 0}
   highlightColor: {r: 0.5, g: 0.5, b: 0.5, a: 0.25}
   originalColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &8777057174055891255

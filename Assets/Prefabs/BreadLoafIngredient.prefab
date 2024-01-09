@@ -145,7 +145,7 @@ MonoBehaviour:
   cut: 0
   burnTime: 0
   cookTime: 0
-  cutTime: 5
+  cutTime: 2
 --- !u!23 &2533670095668547438
 MeshRenderer:
   m_ObjectHideFlags: 0
