@@ -149,6 +149,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   renderers:
   - {fileID: 172899678083516784}
+  promtText: {fileID: 0}
   highlightColor: {r: 1, g: 1, b: 1, a: 0.25}
   originalColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &-5852512280064967952
@@ -175,4 +176,4 @@ MonoBehaviour:
   cut: 0
   burnTime: 0
   cookTime: 0
-  cutTime: 5
+  cutTime: 3
