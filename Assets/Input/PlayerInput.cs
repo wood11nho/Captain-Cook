@@ -80,6 +80,15 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""MusicToggle"",
+                    ""type"": ""Button"",
+                    ""id"": ""30b61466-186d-45da-8885-fd5624e107db"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -302,6 +311,17 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""action"": ""OpenRecipeBook"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""eaf26a26-a84b-470f-96b3-fa90a1522875"",
+                    ""path"": ""<Keyboard>/m"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MusicToggle"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -316,6 +336,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_Walk_Drop = m_Walk.FindAction("Drop", throwIfNotFound: true);
         m_Walk_Jump = m_Walk.FindAction("Jump", throwIfNotFound: true);
         m_Walk_OpenRecipeBook = m_Walk.FindAction("OpenRecipeBook", throwIfNotFound: true);
+        m_Walk_MusicToggle = m_Walk.FindAction("MusicToggle", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -383,6 +404,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_Walk_Drop;
     private readonly InputAction m_Walk_Jump;
     private readonly InputAction m_Walk_OpenRecipeBook;
+    private readonly InputAction m_Walk_MusicToggle;
     public struct WalkActions
     {
         private @PlayerInput m_Wrapper;
@@ -393,6 +415,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         public InputAction @Drop => m_Wrapper.m_Walk_Drop;
         public InputAction @Jump => m_Wrapper.m_Walk_Jump;
         public InputAction @OpenRecipeBook => m_Wrapper.m_Walk_OpenRecipeBook;
+        public InputAction @MusicToggle => m_Wrapper.m_Walk_MusicToggle;
         public InputActionMap Get() { return m_Wrapper.m_Walk; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -420,6 +443,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @OpenRecipeBook.started += instance.OnOpenRecipeBook;
             @OpenRecipeBook.performed += instance.OnOpenRecipeBook;
             @OpenRecipeBook.canceled += instance.OnOpenRecipeBook;
+            @MusicToggle.started += instance.OnMusicToggle;
+            @MusicToggle.performed += instance.OnMusicToggle;
+            @MusicToggle.canceled += instance.OnMusicToggle;
         }
 
         private void UnregisterCallbacks(IWalkActions instance)
@@ -442,6 +468,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @OpenRecipeBook.started -= instance.OnOpenRecipeBook;
             @OpenRecipeBook.performed -= instance.OnOpenRecipeBook;
             @OpenRecipeBook.canceled -= instance.OnOpenRecipeBook;
+            @MusicToggle.started -= instance.OnMusicToggle;
+            @MusicToggle.performed -= instance.OnMusicToggle;
+            @MusicToggle.canceled -= instance.OnMusicToggle;
         }
 
         public void RemoveCallbacks(IWalkActions instance)
@@ -467,5 +496,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         void OnDrop(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
         void OnOpenRecipeBook(InputAction.CallbackContext context);
+        void OnMusicToggle(InputAction.CallbackContext context);
     }
 }
