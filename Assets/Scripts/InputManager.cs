@@ -23,6 +23,8 @@ public class InputManager : MonoBehaviour
 
         walk.Interact.performed += ctx => itemPickup.Interact();
         walk.Drop.performed += ctx => itemPickup.Drop();
+
+        walk.OpenRecipeBook.performed += ctx => ToggleRecipeBook();
     }
 
     private void OnEnable()
@@ -39,5 +41,31 @@ public class InputManager : MonoBehaviour
     {
         motor.ProcessMove(walk.Movement.ReadValue<Vector2>());
         look.ProcessLook(walk.Look.ReadValue<Vector2>());
+
+        if (motor.getRecipeBookOpened())
+        {
+            if (Input.GetKeyDown(KeyCode.LeftArrow) && motor.getCurrentRecipeBookPage() > 0)
+            {
+                motor.setCurrentRecipeBookPage(motor.getCurrentRecipeBookPage() - 1);
+                motor.activateCurrentRecipeBookPage(motor.getCurrentRecipeBookPage());
+            }
+            else if (Input.GetKeyDown(KeyCode.RightArrow) && motor.getCurrentRecipeBookPage() < motor.getTotalRecipeBookPages() - 1)
+            {
+                motor.setCurrentRecipeBookPage(motor.getCurrentRecipeBookPage() + 1);
+                motor.activateCurrentRecipeBookPage(motor.getCurrentRecipeBookPage());
+            }
+        }
+    }
+
+    private void ToggleRecipeBook()
+    {
+        if (motor.getRecipeBookOpened())
+        {
+            motor.CloseRecipeBook();
+        }
+        else
+        {
+            motor.OpenRecipeBook();
+        }
     }
 }

@@ -11,15 +11,32 @@ public class AudioManager : MonoBehaviour
 
     public AudioClip loseMusic;
 
+    [SerializeField]
+    AudioSource birdsSound;
+
     void Start()
     {
-        
+        StartCoroutine(PlayBirdsSoundRandomly());
+    }
+
+    IEnumerator PlayBirdsSoundRandomly()
+    {
+        while (true)
+        {
+            float waitTime = Random.Range(20f, 40f);
+            yield return new WaitForSeconds(waitTime);
+
+            if (!birdsSound.isPlaying)
+            {
+                birdsSound.Play();
+            }
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public void changeBackgroundMusic(AudioClip currentMusic)

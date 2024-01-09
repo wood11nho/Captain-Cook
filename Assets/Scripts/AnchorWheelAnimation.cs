@@ -17,6 +17,9 @@ public class AnchorWheelAnimation : MonoBehaviour, IUsable
     [SerializeField]
     private GameObject gameManager;
 
+    [SerializeField]
+    private AudioSource anchorIntoWaterAudioSource;
+
     void Start()
     {
         audioManager = FindObjectOfType<AudioManager>();
@@ -56,6 +59,7 @@ public class AnchorWheelAnimation : MonoBehaviour, IUsable
 
         // Anchor animation
         anchor.GetComponent<Animator>().SetBool("anchorMoving", startGame);
+        anchorIntoWaterAudioSource.Play();
 
         // Wait for another 3 seconds before switching back to the main camera
         yield return new WaitForSeconds(3f);
@@ -67,6 +71,7 @@ public class AnchorWheelAnimation : MonoBehaviour, IUsable
 
         // Anchor animation
         anchor.GetComponent<Animator>().SetBool("anchorMoving", false);
+        anchorIntoWaterAudioSource.Stop();
         yield return new WaitForSeconds(1f);
         gameManager.GetComponent<GameManager>().StartGame();
 
