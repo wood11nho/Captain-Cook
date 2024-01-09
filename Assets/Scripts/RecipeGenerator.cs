@@ -57,7 +57,7 @@ public class RecipeGenerator : MonoBehaviour
 
     private GameObject[] npcs;
 
-    private IEnumerator generateRecipesCoroutine;
+    private Coroutine generateRecipesCoroutine;
 
     private bool gameStarted = false;
 
@@ -68,6 +68,8 @@ public class RecipeGenerator : MonoBehaviour
     private int currentNpcIndex = 0;
 
     private int totalChildrenNumberOfNPCsObject;
+
+    private IEnumerator recipeGeneratorCoroutine;
 
 
     // Start is called before the first frame update
@@ -143,7 +145,7 @@ public class RecipeGenerator : MonoBehaviour
     {
         if(gameManager.GetComponent<GameManager>().GetGameDuration() - gameManager.GetComponent<GameManager>().GetTimeElapsed() <= maxTimeBetweenRecipes)
         {
-            StopAllCoroutines();
+            StopCoroutine(generateRecipesCoroutine);
         }
         else
         {
@@ -177,14 +179,14 @@ public class RecipeGenerator : MonoBehaviour
     public void StartRecipeGenerator()
     {
         gameStarted = true;
-        StartCoroutine(GenerateRecipesCoroutine(minTimeBetweenRecipes, maxTimeBetweenRecipes));
+        generateRecipesCoroutine = StartCoroutine(GenerateRecipesCoroutine(minTimeBetweenRecipes, maxTimeBetweenRecipes));
     }
 
     public void StopRecipeGenerator()
     {
         gameStarted = false;
         servingTable.GetComponent<ServingTable>().RemoveAllRecipesFromOpened();
-        StopAllCoroutines();
+        StopCoroutine(generateRecipesCoroutine);
     }
 
     public void AddTextBoxToPanel(int indexLastRecipe, string recipeName, float expirationTime)
