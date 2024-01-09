@@ -191,7 +191,14 @@ public class GameManager : MonoBehaviour
             //winAudioSource.Play();
             gameOverText.text = "You Win!";
             strikesPenalizationText.text = "-" + strikes.ToString() + " x 50";
-
+            if(SceneManager.GetActiveScene().name == "Level 1")
+            {
+                PlayerPrefs.SetInt("Level2Unlocked", 1);
+            }
+            else if(SceneManager.GetActiveScene().name == "Level 2")
+            {
+                PlayerPrefs.SetInt("Level3Unlocked", 1);
+            }
 
         }
 
