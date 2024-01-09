@@ -223,8 +223,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.3467716, y: 0.07679281, z: 0.28533947}
-  m_Center: {x: -0.00010302663, y: 0.07428841, z: -0.018845208}
+  m_Size: {x: 0.3467716, y: 0.06726503, z: 0.28533947}
+  m_Center: {x: -0.00010302663, y: -0.021667168, z: -0.0188452}
 --- !u!114 &4427756461542976921
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -265,6 +265,7 @@ MonoBehaviour:
   - {fileID: 2285411480841986672}
   - {fileID: 5408626269566850734}
   - {fileID: 187502083914819500}
+  promtText: {fileID: 0}
   highlightColor: {r: 0.5, g: 0.5, b: 0.5, a: 0.25}
   originalColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!54 &1061722307859560064
