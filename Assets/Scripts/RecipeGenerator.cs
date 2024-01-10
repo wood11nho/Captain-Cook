@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEditor.Animations;
 using UnityEngine;
 using UnityEngine.UI;
@@ -186,7 +187,8 @@ public class RecipeGenerator : MonoBehaviour
     {
         gameStarted = false;
         servingTable.GetComponent<ServingTable>().RemoveAllRecipesFromOpened();
-        StopCoroutine(generateRecipesCoroutine);
+        if (generateRecipesCoroutine != null)
+            StopCoroutine(generateRecipesCoroutine);
     }
 
     public void AddTextBoxToPanel(int indexLastRecipe, string recipeName, float expirationTime)
