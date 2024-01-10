@@ -14,6 +14,7 @@ public class LogoMenuEffects : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        WaitForSeconds wait = new WaitForSeconds(1f);
         StartCoroutine(MoveLogo());
     }
 
@@ -23,23 +24,37 @@ public class LogoMenuEffects : MonoBehaviour
     {
     
     }
-
     IEnumerator MoveLogo()
     {
+        Vector3 targetPosition;
+
         while (true)
         {
-            logoImage.transform.position = Vector3.MoveTowards(logoImage.transform.position, new Vector3(logoImage.transform.position.x, logoImage.transform.position.y + 100f, logoImage.transform.position.z), Time.deltaTime * 5f);
+            targetPosition = new Vector3(logoImage.transform.position.x, logoImage.transform.position.y + 10, logoImage.transform.position.z);
+            yield return MoveLogoToPosition(targetPosition, 1f);
 
-            yield return null; // Wait for the next frame
+            targetPosition = new Vector3(logoImage.transform.position.x, logoImage.transform.position.y - 20, logoImage.transform.position.z);
+            yield return MoveLogoToPosition(targetPosition, 1f);
 
-            yield return new WaitForSeconds(5f);
-
-            logoImage.transform.position = Vector3.MoveTowards(logoImage.transform.position, new Vector3(logoImage.transform.position.x, logoImage.transform.position.y - 200f, logoImage.transform.position.z), Time.deltaTime * 5f);
-
-            yield return null; // Wait for the next frame
-
-            yield return new WaitForSeconds(5f);
+            targetPosition = new Vector3(logoImage.transform.position.x, logoImage.transform.position.y + 10, logoImage.transform.position.z);
+            yield return MoveLogoToPosition(targetPosition, 1f);
         }
     }
+
+    IEnumerator MoveLogoToPosition(Vector3 targetPosition, float duration)
+    {
+        float elapsedTime = 0f;
+        Vector3 startingPosition = logoImage.transform.position;
+
+        while (elapsedTime < duration)
+        {
+            logoImage.transform.position = Vector3.Lerp(startingPosition, targetPosition, elapsedTime / duration);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        logoImage.transform.position = targetPosition; // Ensure the logo reaches the exact target position
+    }
+
 
 }
