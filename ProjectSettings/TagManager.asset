@@ -9,6 +9,7 @@ TagManager:
   - plane
   - boatAI
   - destinationArea
+  - npcDestinationArea
   layers:
   - Default
   - TransparentFX
@@ -21,8 +22,8 @@ TagManager:
   - IgnoreRaycast
   - NavMeshSurface
   - NavMeshObstacle
-  - 
-  - 
+  - NPCNavMeshSurface
+  - NPCNavMeshObstacle
   - 
   - 
   - 
