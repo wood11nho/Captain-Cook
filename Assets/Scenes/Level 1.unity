@@ -161,7 +161,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 64
   m_CollisionDetection: 1
 --- !u!33 &1383033
 MeshFilter:
@@ -1301,12 +1301,12 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1383031}
-  - {fileID: 1706392498}
-  - {fileID: 1855464884}
   - {fileID: 270167870}
+  - {fileID: 1706392498}
+  - {fileID: 175750197}
+  - {fileID: 1855464884}
   - {fileID: 330514629}
   - {fileID: 998364220}
-  - {fileID: 175750197}
   - {fileID: 1973304546}
   - {fileID: 413932873}
   - {fileID: 561521706}
@@ -1882,7 +1882,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 64
   m_CollisionDetection: 1
 --- !u!33 &175750199
 MeshFilter:
@@ -2915,7 +2915,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 64
   m_CollisionDetection: 1
 --- !u!33 &270167872
 MeshFilter:
@@ -3623,7 +3623,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 64
   m_CollisionDetection: 1
 --- !u!33 &330514631
 MeshFilter:
@@ -4185,7 +4185,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 64
   m_CollisionDetection: 1
 --- !u!33 &413932875
 MeshFilter:
@@ -4949,16 +4949,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 2100000, guid: 81b8a4e2db0428b4b816713db57caa06, type: 2}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.12941177}
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 2a9f04485d4e82145948c1f7bb51a30d, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -5632,7 +5632,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 64
   m_CollisionDetection: 1
 --- !u!33 &561521708
 MeshFilter:
@@ -7746,7 +7746,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 64
   m_CollisionDetection: 1
 --- !u!33 &748731981
 MeshFilter:
@@ -8096,7 +8096,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 64
   m_CollisionDetection: 1
 --- !u!33 &830538671
 MeshFilter:
@@ -9076,7 +9076,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 64
   m_CollisionDetection: 1
 --- !u!33 &998364222
 MeshFilter:
@@ -11559,7 +11559,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 64
   m_CollisionDetection: 1
 --- !u!33 &1215713344
 MeshFilter:
@@ -13001,7 +13001,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 64
   m_CollisionDetection: 1
 --- !u!33 &1342927702
 MeshFilter:
@@ -13226,7 +13226,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 64
   m_CollisionDetection: 1
 --- !u!33 &1352616431
 MeshFilter:
@@ -16592,7 +16592,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 64
   m_CollisionDetection: 0
 --- !u!1 &1697652927
 GameObject:
@@ -16894,7 +16894,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 64
   m_CollisionDetection: 1
 --- !u!33 &1706392500
 MeshFilter:
@@ -17848,7 +17848,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 64
   m_CollisionDetection: 1
 --- !u!33 &1855464886
 MeshFilter:
@@ -19266,7 +19266,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 64
   m_CollisionDetection: 1
 --- !u!33 &1973304548
 MeshFilter:
@@ -20953,7 +20953,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 64
   m_CollisionDetection: 1
 --- !u!33 &2122163462
 MeshFilter:
@@ -21514,6 +21514,22 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -83
+      objectReference: {fileID: 0}
+    - target: {fileID: 2361670427234338442, guid: 41a0ed8fe97f47841aa6bdb6f30e8919,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 2a9f04485d4e82145948c1f7bb51a30d,
+        type: 3}
+    - target: {fileID: 2361670427234338442, guid: 41a0ed8fe97f47841aa6bdb6f30e8919,
+        type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2361670427234338442, guid: 41a0ed8fe97f47841aa6bdb6f30e8919,
+        type: 3}
+      propertyPath: m_Material
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 2546524641643451221, guid: 41a0ed8fe97f47841aa6bdb6f30e8919,
         type: 3}
