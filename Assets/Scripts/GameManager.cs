@@ -7,7 +7,7 @@ using UnityEngine.UI;
 using UnityEngine.UIElements;
 
 public class GameManager : MonoBehaviour
-{
+{ 
     [SerializeField]
     private GameObject player;
 
@@ -78,6 +78,12 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private AudioSource loseAudioSource;
 
+    [SerializeField]
+    private float targetDensity = 0.2f;
+
+    [SerializeField]
+    private float duration = 10f;
+
     private float timeElapsed = 0.0f;
 
     private int score;
@@ -100,6 +106,50 @@ public class GameManager : MonoBehaviour
         score = 0;
         strikes = 0;
         servingTable.layer = LayerMask.NameToLayer("IgnoreRaycast");
+
+        if (SceneManager.GetActiveScene().name == "Level 3")
+        {
+            Debug.Log("Level 3");
+            StartCoroutine(AddFog());
+        }
+    }
+
+    IEnumerator AddFog()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(Random.Range(30, 60));
+            StartCoroutine(FadeFog(true));
+
+            float randomTimeForFog = Random.Range(30, 60);
+            yield return new WaitForSeconds(randomTimeForFog);
+
+            StartCoroutine(FadeFog(false));
+            yield return new WaitForSeconds(Random.Range(30, 60));
+        }
+    }
+
+    IEnumerator FadeFog(bool fadeIn)
+    {
+        float targetDensityCalculator = fadeIn ? this.targetDensity : 0f;
+        float currentDensity = RenderSettings.fogDensity;
+
+        float elapsedTime = 0f;
+
+        Debug.Log("Starting to fade fog");
+
+        while (elapsedTime < duration)
+        {
+            // Gradually change fog density over time
+            RenderSettings.fogDensity = Mathf.Lerp(currentDensity, targetDensity, elapsedTime / duration);
+
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        Debug.Log("Finished fading fog");
+        
+        RenderSettings.fogDensity = targetDensity;
     }
 
     // Update is called once per frame
