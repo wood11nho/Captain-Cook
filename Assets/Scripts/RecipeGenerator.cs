@@ -2,9 +2,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.AI.Navigation;
 using Unity.VisualScripting;
 using UnityEditor.Animations;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
 
@@ -72,6 +74,8 @@ public class RecipeGenerator : MonoBehaviour
 
     private IEnumerator recipeGeneratorCoroutine;
 
+    private Coroutine leaveNPCsCoroutine;
+
 
     // Start is called before the first frame update
     void Awake()
@@ -109,7 +113,14 @@ public class RecipeGenerator : MonoBehaviour
     }
     public void DecrementIndexLastRecipe()
     {
-        npcs[0].SetActive(false);
+         leaveNPCsCoroutine = StartCoroutine(NPCLeaveCoroutine());
+    }
+
+    IEnumerator NPCLeaveCoroutine()
+    {
+        npcs[0].GetComponent<Animator>().SetBool("isWalking", true);
+        npcs[0].GetComponent<NPCScript>().GoToDestination();
+        //npcs[0].SetActive(false);
         // delete first element of vector npcs
         for (int i = 0; i < totalChildrenNumberOfNPCsObject - 1; i++)
         {
@@ -119,6 +130,7 @@ public class RecipeGenerator : MonoBehaviour
         indexLastRecipe--;
         currentNpcIndex--;
         StartCoroutine(MoveNPCs(currentNpcIndex));
+        yield return null;
     }
 
     IEnumerator MoveNPCs(int currentNpcIndex)
@@ -300,6 +312,11 @@ public class RecipeGenerator : MonoBehaviour
         yield return new WaitForSeconds(UnityEngine.Random.Range(minTimeBetween, maxTimeBetween));
 
         StartCoroutine(GenerateRecipesCoroutine(minTimeBetween, maxTimeBetween));
+    }
+
+    public Coroutine getLeaveNpcsCoroutine()
+    {
+        return leaveNPCsCoroutine;
     }
 
 }
