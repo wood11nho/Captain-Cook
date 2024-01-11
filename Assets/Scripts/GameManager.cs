@@ -141,7 +141,7 @@ public class GameManager : MonoBehaviour
         while (elapsedTime < duration)
         {
             // Gradually change fog density over time
-            RenderSettings.fogDensity = Mathf.Lerp(currentDensity, targetDensity, elapsedTime / duration);
+            RenderSettings.fogDensity = Mathf.Lerp(currentDensity, targetDensityCalculator, elapsedTime / duration);
 
             elapsedTime += Time.deltaTime;
             yield return null;
@@ -149,7 +149,7 @@ public class GameManager : MonoBehaviour
 
         Debug.Log("Finished fading fog");
         
-        RenderSettings.fogDensity = targetDensity;
+        RenderSettings.fogDensity = targetDensityCalculator;
     }
 
     // Update is called once per frame
@@ -286,7 +286,10 @@ public class GameManager : MonoBehaviour
 
     public void LoadNextLevel()
     {
-        SceneManager.LoadScene("LevelSelect");
+        if (SceneManager.GetActiveScene().name != "Level 3")
+            SceneManager.LoadScene("LevelSelect");
+        else SceneManager.LoadScene("EndScreen");
+
     }
 
     public bool LeftoversExist()
