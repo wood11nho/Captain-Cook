@@ -224,7 +224,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6668236431164625144}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -300,6 +300,10 @@ MonoBehaviour:
   speed: 5
   gravity: -9.8
   jumpHeight: 3
+  splashAudioSource: {fileID: 0}
+  gameManager: {fileID: 0}
+  recipeBookPanel: {fileID: 0}
+  textOpenRecipe: {fileID: 0}
 --- !u!114 &6776440198375564244
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -153,4 +153,16 @@ public class PlayerMotor : MonoBehaviour
         }
         recipeBookPages[currentRecipeBookPage].SetActive(true);
     }
+
+    public void SetMaxSpeedFor10Seconds()
+    {
+        speed = 20f;
+        StartCoroutine(ResetSpeed());
+    }
+
+    IEnumerator ResetSpeed()
+    {
+        yield return new WaitForSeconds(10f);
+        speed = 5f;
+    }
 }

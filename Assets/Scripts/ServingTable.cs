@@ -79,6 +79,7 @@ public class ServingTable : MonoBehaviour, IUsable
                         recipeMatches = true;
                         matchingRecipe = OpenedRecipes[i];
                         indexOfDoneRecipe = i;
+                        Debug.Log("Reteta care va fi scoasa din vector: " + OpenedRecipes[i].GetRecipeName() + " la indexul: " + i + " are " + OpenedRecipes[i].GetIngredientNames().Count + " ingrediente");
                         break;
                     }
                 }
@@ -88,7 +89,7 @@ public class ServingTable : MonoBehaviour, IUsable
             {
                 Debug.Log("Recipe matches!");
                 recipeMatchesAudioSource.Play();
-                RemoveRecipeFromOpened(matchingRecipe);
+                RemoveRecipeFromOpened(indexOfDoneRecipe);
                 gameManager.GetComponent<GameManager>().AddScore(gameManager.GetComponent<GameManager>().CalculateRecipeScore(matchingRecipe));
             }
             else
@@ -122,12 +123,11 @@ public class ServingTable : MonoBehaviour, IUsable
     public void AddRecipeToOpened(Recipe recipe)
     {
         OpenedRecipes.Add(recipe);
-        Debug.Log(OpenedRecipes.Count);
     }
 
-    public void RemoveRecipeFromOpened(Recipe recipe)
+    public void RemoveRecipeFromOpened(int indexOfDoneRecipe)
     {
-        OpenedRecipes.Remove(recipe);
+        OpenedRecipes.RemoveAt(indexOfDoneRecipe);
     }
 
     public void RemoveAllRecipesFromOpened()
@@ -154,30 +154,35 @@ public class ServingTable : MonoBehaviour, IUsable
 
         for (int i = 0; i < OpenedRecipes.Count; i++)
         {
+            Debug.Log("Recipe named " + OpenedRecipes[i].GetRecipeName() + " has " + OpenedRecipes[i].GetExpirationTime() + " seconds left");
             if (OpenedRecipes[i].GetExpirationTime() <= 0.0f)
             {
                 recipeDoesNotMatchAudioSource.Play();
                 gameManager.GetComponent<GameManager>().AddStrike();
-                indexesToRemove.Add(i);
+                //indexesToRemove.Add(i);
                 indexesToRemoveString += i + " ";
+
+                RemoveRecipeFromOpened(i);
+                recipeGenerator.GetComponent<RecipeGenerator>().DecrementIndexLastRecipe();
+                Destroy(activeRecipesUI.transform.GetChild(i).gameObject);
+
+                for (int nextRecipeInLineIndex = i + 1; nextRecipeInLineIndex <= OpenedRecipes.Count; nextRecipeInLineIndex++)
+                {
+                    RectTransform rectTransform = activeRecipesUI.transform.GetChild(nextRecipeInLineIndex).GetComponent<RectTransform>();
+                    rectTransform.localPosition = new Vector3(rectTransform.localPosition.x - 200, rectTransform.localPosition.y, rectTransform.localPosition.z);
+                }
             }
         }
 
-        Debug.Log("Expired recipes: " + indexesToRemoveString);
-
+        /*
         for (int i = 0; i < indexesToRemove.Count; i++)
         {
 
             RemoveRecipeFromOpened(OpenedRecipes[indexesToRemove[i]]);
             recipeGenerator.GetComponent<RecipeGenerator>().DecrementIndexLastRecipe();
             Destroy(activeRecipesUI.transform.GetChild(indexesToRemove[i]).gameObject);
-
-            for (int nextRecipeInLineIndex = indexesToRemove[i] + 1; nextRecipeInLineIndex <= OpenedRecipes.Count; nextRecipeInLineIndex++)
-            {
-                RectTransform rectTransform = activeRecipesUI.transform.GetChild(nextRecipeInLineIndex).GetComponent<RectTransform>();
-                rectTransform.localPosition = new Vector3(rectTransform.localPosition.x - 200, rectTransform.localPosition.y, rectTransform.localPosition.z);
-            }
         }
+        */
 
         yield return new WaitForSeconds(1f);
         StartCoroutine(RemoveExpiredRecipes());
