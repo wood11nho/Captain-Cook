@@ -84,6 +84,15 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private float duration = 10f;
 
+    [SerializeField]
+    private GameObject steakGeneratorObject;
+
+    [SerializeField]
+    private GameObject sausageGeneratorObject;
+
+    [SerializeField]
+    private GameObject salmonGeneratorObject;
+
     private float timeElapsed = 0.0f;
 
     private int score;
@@ -99,6 +108,22 @@ public class GameManager : MonoBehaviour
     private bool gameWon = false;
 
     private bool gameOver = false;
+
+    private KeyCode[] cheatCodeSteak = { KeyCode.S, KeyCode.T, KeyCode.E, KeyCode.A, KeyCode.K };
+
+    private int currentIndexOfSteakCheatCode = 0;
+
+    private KeyCode[] cheatCodeSausage = { KeyCode.S, KeyCode.A, KeyCode.U, KeyCode.S, KeyCode.A, KeyCode.G, KeyCode.E };
+
+    private int currentIndexOfSausageCheatCode = 0;
+
+    private KeyCode[] cheatCodeSalmon = { KeyCode.S, KeyCode.A, KeyCode.L, KeyCode.M, KeyCode.O, KeyCode.N };
+
+    private int currentIndexOfSalmonCheatCode = 0;
+
+    private KeyCode[] cheatMaxPlayerSpeed = {KeyCode.M, KeyCode.A, KeyCode.X, KeyCode.S, KeyCode.P, KeyCode.E, KeyCode.E, KeyCode.D };
+
+    private int currentIndexOfMaxPlayerSpeedCheatCode = 0;
 
     // Start is called before the first frame update
     void Awake()
@@ -184,6 +209,9 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
+
+        if (player.GetComponent<CharacterController>().enabled)
+            LookForCheatCodes();
     }
 
     public void StartGame()
@@ -359,4 +387,78 @@ public class GameManager : MonoBehaviour
         this.gameWon = gameWon;
     }
 
+    public void LookForCheatCodes()
+    {
+        if (Input.anyKeyDown)
+        {
+            if (Input.GetKeyDown(cheatCodeSteak[currentIndexOfSteakCheatCode]))
+            {
+                currentIndexOfSteakCheatCode++;
+
+                if (currentIndexOfSteakCheatCode == cheatCodeSteak.Length)
+                {
+                    steakGeneratorObject.GetComponent<IngredientSpawner>().Use(player);
+                    currentIndexOfSteakCheatCode = 0;
+                }
+            }
+            else
+            {
+                currentIndexOfSteakCheatCode = 0;
+            }
+        }
+
+        if (Input.anyKeyDown)
+        {
+            if (Input.GetKeyDown(cheatCodeSausage[currentIndexOfSausageCheatCode]))
+            {
+                currentIndexOfSausageCheatCode++;
+
+                if (currentIndexOfSausageCheatCode == cheatCodeSausage.Length)
+                {
+                    sausageGeneratorObject.GetComponent<IngredientSpawner>().Use(player);
+                    currentIndexOfSausageCheatCode = 0;
+                }
+            }
+            else
+            {
+                currentIndexOfSausageCheatCode = 0;
+            }
+        }
+
+        if (Input.anyKeyDown)
+        {
+            if (Input.GetKeyDown(cheatCodeSalmon[currentIndexOfSalmonCheatCode]))
+            {
+                currentIndexOfSalmonCheatCode++;
+
+                if (currentIndexOfSalmonCheatCode == cheatCodeSalmon.Length)
+                {
+                    salmonGeneratorObject.GetComponent<IngredientSpawner>().Use(player);
+                    currentIndexOfSalmonCheatCode = 0;
+                }
+            }
+            else
+            {
+                currentIndexOfSalmonCheatCode = 0;
+            }
+        }
+
+        if (Input.anyKeyDown)
+        {
+            if (Input.GetKeyDown(cheatMaxPlayerSpeed[currentIndexOfMaxPlayerSpeedCheatCode]))
+            {
+                currentIndexOfMaxPlayerSpeedCheatCode++;
+
+                if (currentIndexOfMaxPlayerSpeedCheatCode == cheatMaxPlayerSpeed.Length)
+                {
+                    player.GetComponent<PlayerMotor>().SetMaxSpeedFor10Seconds();
+                    currentIndexOfMaxPlayerSpeedCheatCode = 0;
+                }
+            }
+            else
+            {
+                currentIndexOfMaxPlayerSpeedCheatCode = 0;
+            }
+        }
+    }
 }

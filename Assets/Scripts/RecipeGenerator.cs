@@ -282,8 +282,8 @@ public class RecipeGenerator : MonoBehaviour
         {
             generatedRecipe = GenerateHardRecipe(6, 9);
         }
-        Debug.Log("Generated recipe: " + generatedRecipe.GetRecipeName());
         AddTextBoxToPanel(indexLastRecipe, generatedRecipe.GetRecipeName(), generatedRecipe.GetExpirationTime());
+        Debug.Log("Recipe: " + generatedRecipe.GetRecipeName() + " " + generatedRecipe.GetExpirationTime());
         if(currentNpcIndex >= 1)
             npcs[currentNpcIndex].transform.position = new Vector3(npcs[currentNpcIndex - 1].transform.position.x, npcs[currentNpcIndex - 1].transform.position.y, npcs[currentNpcIndex - 1].transform.position.z - 1);
         npcs[currentNpcIndex].SetActive(true);
@@ -324,7 +324,7 @@ public class RecipeGenerator : MonoBehaviour
 
         yield return new WaitForSeconds(UnityEngine.Random.Range(minTimeBetween, maxTimeBetween));
 
-        StartCoroutine(GenerateRecipesCoroutine(minTimeBetween, maxTimeBetween));
+        generateRecipesCoroutine = StartCoroutine(GenerateRecipesCoroutine(minTimeBetween, maxTimeBetween));
     }
 
     public Coroutine getLeaveNpcsCoroutine()

@@ -27081,6 +27081,21 @@ PrefabInstance:
       objectReference: {fileID: 76777947}
     - target: {fileID: 7071653814716955872, guid: 86920437d7784244aa8a8ef445994220,
         type: 3}
+      propertyPath: steakGeneratorObject
+      value: 
+      objectReference: {fileID: 1975250716}
+    - target: {fileID: 7071653814716955872, guid: 86920437d7784244aa8a8ef445994220,
+        type: 3}
+      propertyPath: salmonGeneratorObject
+      value: 
+      objectReference: {fileID: 603003019}
+    - target: {fileID: 7071653814716955872, guid: 86920437d7784244aa8a8ef445994220,
+        type: 3}
+      propertyPath: sausageGeneratorObject
+      value: 
+      objectReference: {fileID: 1223353608}
+    - target: {fileID: 7071653814716955872, guid: 86920437d7784244aa8a8ef445994220,
+        type: 3}
       propertyPath: strikesPenalizationText
       value: 
       objectReference: {fileID: 1141683005}
