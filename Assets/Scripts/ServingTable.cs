@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -140,27 +141,33 @@ public class ServingTable : MonoBehaviour, IUsable
 
     void Awake()
     {
+        StartCoroutine(RemoveExpiredRecipes());
         //OpenedRecipes.Add(new Recipe("Sausage Sandwich", new List<string>{ "BreadSliceIngredient", "SausageSliceIngredient", "BreadSliceIngredient" }, 30f));
     }
 
-    void Update()
+    private IEnumerator RemoveExpiredRecipes()
     {
+        // I want to make the verification every 1 second
         List<int> indexesToRemove = new List<int>();
-        for (int i = OpenedRecipes.Count - 1; i >= 0; i--)
-        {
-            OpenedRecipes[i].SetExpirationTime(OpenedRecipes[i].GetExpirationTime() - Time.deltaTime);
 
+        string indexesToRemoveString = "";
+
+        for (int i = 0; i < OpenedRecipes.Count; i++)
+        {
             if (OpenedRecipes[i].GetExpirationTime() <= 0.0f)
             {
                 recipeDoesNotMatchAudioSource.Play();
                 gameManager.GetComponent<GameManager>().AddStrike();
                 indexesToRemove.Add(i);
+                indexesToRemoveString += i + " ";
             }
-
         }
 
-        for(int i = 0; i < indexesToRemove.Count; i++)
+        Debug.Log("Expired recipes: " + indexesToRemoveString);
+
+        for (int i = 0; i < indexesToRemove.Count; i++)
         {
+
             RemoveRecipeFromOpened(OpenedRecipes[indexesToRemove[i]]);
             recipeGenerator.GetComponent<RecipeGenerator>().DecrementIndexLastRecipe();
             Destroy(activeRecipesUI.transform.GetChild(indexesToRemove[i]).gameObject);
@@ -172,6 +179,17 @@ public class ServingTable : MonoBehaviour, IUsable
             }
         }
 
+        yield return new WaitForSeconds(1f);
+        StartCoroutine(RemoveExpiredRecipes());
+
+    }
+
+    void Update()
+    {
+        for (int i = OpenedRecipes.Count - 1; i >= 0; i--)
+        {
+            OpenedRecipes[i].SetExpirationTime(OpenedRecipes[i].GetExpirationTime() - Time.deltaTime);
+        }
     }
     void LateUpdate()
     {

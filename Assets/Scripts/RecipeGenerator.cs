@@ -76,6 +76,8 @@ public class RecipeGenerator : MonoBehaviour
 
     private Coroutine leaveNPCsCoroutine;
 
+    private bool recipeGeneratorCoroutineStopped = false;
+
 
     // Start is called before the first frame update
     void Awake()
@@ -156,8 +158,10 @@ public class RecipeGenerator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(gameManager.GetComponent<GameManager>().GetGameDuration() - gameManager.GetComponent<GameManager>().GetTimeElapsed() <= maxTimeBetweenRecipes)
+        if(gameManager.GetComponent<GameManager>().GetGameDuration() - gameManager.GetComponent<GameManager>().GetTimeElapsed() <= maxTimeBetweenRecipes && !recipeGeneratorCoroutineStopped)
         {
+            recipeGeneratorCoroutineStopped = true;
+            Debug.Log("Stop recipe generator");
             StopCoroutine(generateRecipesCoroutine);
         }
         else
@@ -226,26 +230,35 @@ public class RecipeGenerator : MonoBehaviour
     }
 
     IEnumerator UpdateSlider(UnityEngine.UI.Slider slider, float expirationTime)
-    {
-        while(slider.value < expirationTime)
+    {   
+        if (slider != null)
         {
-            slider.value += Time.deltaTime;
-            // Get Slider/Fill Area/Fill child of slider
-            GameObject fill = slider.transform.GetChild(1).GetChild(0).gameObject;
-            
-            if (slider.value >= expirationTime / 2.0f)
+            while (slider != null && slider.value < expirationTime)
             {
-                fill.GetComponent<UnityEngine.UI.Image>().color = Color.yellow;
+                if (slider == null)
+                    break;
+                slider.value += Time.deltaTime;
+                if (slider == null)
+                    break;
+                // Get Slider/Fill Area/Fill child of slider
+                GameObject fill = slider.transform.GetChild(1).GetChild(0).gameObject;
+                if (slider == null)
+                    break;
+
+                if (slider.value >= expirationTime / 2.0f)
+                {
+                    fill.GetComponent<UnityEngine.UI.Image>().color = Color.yellow;
+                }
+                if (slider.value >= expirationTime / 4.0f * 3.0f)
+                {
+                    fill.GetComponent<UnityEngine.UI.Image>().color = Color.red;
+                }
+                /*if (slider.value >= expirationTime)
+                {
+                    failImage.gameObject.SetActive(true);
+                }*/
+                yield return null;
             }
-            if (slider.value >= expirationTime / 4.0f * 3.0f)
-            {
-                fill.GetComponent<UnityEngine.UI.Image>().color = Color.red;
-            }
-            /*if (slider.value >= expirationTime)
-            {
-                failImage.gameObject.SetActive(true);
-            }*/
-            yield return null;
         }
     }
 
