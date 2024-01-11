@@ -314,9 +314,10 @@ public class GameManager : MonoBehaviour
 
     public void LoadNextLevel()
     {
-        if (SceneManager.GetActiveScene().name != "Level 3")
+        if (SceneManager.GetActiveScene().name != "Level 3" || !gameWon)
             SceneManager.LoadScene("LevelSelect");
-        else SceneManager.LoadScene("EndScreen");
+        else
+            SceneManager.LoadScene("EndScreen");
 
     }
 
