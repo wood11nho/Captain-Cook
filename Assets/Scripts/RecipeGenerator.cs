@@ -4,7 +4,9 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.AI.Navigation;
 using Unity.VisualScripting;
+#if UNITY_EDITOR
 using UnityEditor.Animations;
+#endif
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
