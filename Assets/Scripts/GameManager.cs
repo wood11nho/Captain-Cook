@@ -210,6 +210,12 @@ public class GameManager : MonoBehaviour
             }
         }
 
+        //escape key go to main menu
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            SceneManager.LoadScene("MainMenu");
+        }
+
         if (player.GetComponent<CharacterController>().enabled)
             LookForCheatCodes();
     }
