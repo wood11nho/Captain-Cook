@@ -105,7 +105,7 @@ public class GameManager : MonoBehaviour
 
     private bool gameStarted = false;
 
-    private bool gameWon = false;
+    private bool gameWon;
 
     private bool gameOver = false;
 
@@ -128,6 +128,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
+        gameWon = false;
         score = 0;
         strikes = 0;
         servingTable.layer = LayerMask.NameToLayer("IgnoreRaycast");
@@ -263,6 +264,7 @@ public class GameManager : MonoBehaviour
             //loseAudioSource.Play();
             strikesPenalizationText.text = "ALL(3) x 50";
             survivedLevelScore = 0;
+            PlayerPrefs.SetInt("LevelWon", 0);
         }
         else
         {
@@ -283,6 +285,7 @@ public class GameManager : MonoBehaviour
             {
                 PlayerPrefs.SetInt("Level3Unlocked", 1);
             }
+            PlayerPrefs.SetInt("LevelWon", 1);
 
         }
 
@@ -320,11 +323,15 @@ public class GameManager : MonoBehaviour
 
     public void LoadNextLevel()
     {
-        if (SceneManager.GetActiveScene().name != "Level 3" || !gameWon)
-            SceneManager.LoadScene("LevelSelect");
-        else
+        Debug.Log(SceneManager.GetActiveScene().name + " " + PlayerPrefs.GetInt("LevelWon"));
+        if (SceneManager.GetActiveScene().name == "Level 3" && PlayerPrefs.GetInt("LevelWon") == 1)
+        {
             SceneManager.LoadScene("EndScreen");
-
+        }
+        else
+        {
+            SceneManager.LoadScene("LevelSelect");
+        }
     }
 
     public bool LeftoversExist()
